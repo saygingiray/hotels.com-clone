@@ -1,0 +1,42 @@
+body{
+  margin:0;
+  padding:0;
+  background-color: rgba(221, 221, 221, 0.744) ;
+  font-family: "Inter";
+  font-weight: 100;
+  letter-spacing: -0.7px; 
+}
+
+a:link {
+  color: red;
+  text-decoration: none;
+}
+
+a:visited {
+  color: red;
+  text-decoration: none;
+}
+
+/* mouse over link */
+a:hover {
+  color: black
+}
+
+/* selected link */
+a:active {
+  color: black
+}
+
+.drpdwn a:link {
+  color:black
+}
+
+.drpdwn a:visited {
+  color:black
+}
+
+.drpdwn a:active {
+ 
+  border: 1px solid;
+  border-color: red;
+}
