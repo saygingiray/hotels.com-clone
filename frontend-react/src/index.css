@@ -40,3 +40,8 @@ a:active {
   border: 1px solid;
   border-color: red;
 }
+
+.boldSmallHeading {
+  font-weight: 900;
+  letter-spacing: -0.7px; 
+}
