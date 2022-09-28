@@ -1,14 +1,21 @@
 import React from "react";
 import TextField from '@mui/material/TextField';
-import RoomIcon from '@mui/icons-material/Room';
-import InputAdornment from '@mui/material/InputAdornment';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
+
+
 
 
 export default function SearchTop() {
 
-
     const [searchLocation, setsearchLocation] = React.useState({
         address: ""
+    });
+
+    const [dateValue, setdateValue] = React.useState({
+        checkin: "",
+        checkout: ""
     });
 
     const [incomingData, setincomingData] = React.useState({
@@ -35,7 +42,7 @@ export default function SearchTop() {
             },
         };
 
-        // if (!searchLocation.address == "") {
+        if (!searchLocation.address == "") {
             await fetch(tempQuery, requestOptions)
                 .then(response => response.json())
                 .then((value) => {
@@ -43,7 +50,7 @@ export default function SearchTop() {
                     value.cities.map((x) => { tempData2.push(x) }); setincomingData((prev => ({ ...prev, cityAdvice: tempData2 })))
                 });
             await console.log(tempData)
-        // }
+        }
     }
 
 
@@ -59,41 +66,78 @@ export default function SearchTop() {
         )
     }
 
+
+
     return (
         <div className="d-flex justify-content-center pt-3">
             <div className="d-flex flex-row " style={{ "width": "1200px" }}>
                 <div>
-                    <TextField id="outlined-basic" label="Going to" variant="outlined"
-                        // InputProps={{ startAdornment: (<InputAdornment position="start"> <RoomIcon /> </InputAdornment>), }}
-                        style={{ "backgroundColor": "white", "width": "330px", "borderRadius": "5px" }}
+
+                    <TextField id="outlined-basic" label="Going to"
+                        style={{ "backgroundColor": "#ffffff", "width": "330px", "borderRadius": "5px" }}
                         autoComplete="off" onChange={(event) => { setsearchLocation((prev => ({ ...prev, address: event.target.value }))); setBools((prev => ({ ...prev, locationSearch: true }))) }}
                         onBlur={() => { setBools((prev => ({ ...prev, locationSearch: false }))) }}
                         onFocusCapture={() => { setBools((prev => ({ ...prev, locationSearch: true }))) }}
+                        variant="filled"
+                        sx={{ input: { background: "white" } }}
                     />
+
 
                     <div className={(!bools.locationSearch) ? "d-none" : "d-flex p-2 animate__animated animate__fadeIn"} style={{
                         "width": "330px", "backgroundColor": "white", "minHeight": "200px", "border": "1px solid  rgba(221, 221, 221, 0.744)",
-                        "borderRadius": "5px"
+                        "borderRadius": "5px", "position": "-webkit-sticky", "position": "sticky"
                     }}>
                         <div>
                             <p className="boldSmallHeading">City</p>
                             <ul style={{ "listStyle": "none", "margin": "0", "padding": "0" }}>
-                                {incomingData.cityAdvice.map((z,index) => { return <EntriesFromServer key={index} name={z[0]} count={z[1]} /> })}
+                                {incomingData.cityAdvice.map((z, index) => { return <EntriesFromServer key={index} name={z[0]} count={z[1]} /> })}
                             </ul>
 
                             <hr style={{ "width": "310px" }}></hr>
 
                             <p className="boldSmallHeading">District</p>
                             <ul style={{ "listStyle": "none", "margin": "0", "padding": "0" }}>
-                                {incomingData.locationAdvice.map((y,index) => { return <EntriesFromServer key={index} name={y[0]} count={y[1]} /> })}
+                                {incomingData.locationAdvice.map((y, index) => { return <EntriesFromServer key={index} name={y[0]} count={y[1]} /> })}
                             </ul>
                         </div>
 
                     </div>
 
                 </div>
+                <div className="mx-2 bg-white" style={{ "width": "150px", "maxHeight": "56px" }}>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <MobileDatePicker
 
-
+                            label="Check-in Date"
+                            disablePast="true"
+                            closeOnSelect="true"
+                            inputFormat="DD/MM/YYYY"
+                            value={dateValue.checkin || null}
+                            onChange={(newValue) => { (dateValue.checkout == "") ? setdateValue((prev) => ({ checkout: newValue, checkin: newValue })) : setdateValue((prev) => ({ ...prev, checkin: newValue })) }}
+                            renderInput={(params) => <TextField {...params}
+                                sx={{ input: { background: "white" } }}
+                                variant="filled"
+                            />}
+                        />
+                    </LocalizationProvider>
+                </div>
+                <div className="mx-2 bg-white" style={{ "width": "150px", "maxHeight": "56px" }}>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <MobileDatePicker
+                            label="Check-out Date"
+                            inputFormat="DD/MM/YYYY"
+                            value={dateValue.checkout || null}
+                            onChange={(newValue2) => { setdateValue((prev) => ({ ...prev, checkout: newValue2 })); }}
+                            minDate={dateValue.checkin}
+                            renderInput={(params2) => <TextField {...params2}
+                            sx={{ input: { background: "white" } }}
+                            variant="filled" 
+                             />}
+                           
+                           
+                        />
+                    </LocalizationProvider>
+                </div>
 
             </div>
 
