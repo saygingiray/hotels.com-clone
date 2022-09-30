@@ -4,13 +4,14 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import Modal from '@mui/material/Modal';
-
-
-
-
-
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 export default function SearchTop() {
+
+    // STATES
 
     const [searchLocation, setsearchLocation] = React.useState({
         address: ""
@@ -25,12 +26,13 @@ export default function SearchTop() {
         adults: 1,
         children: {
             numberX: 0,
-            one: "",
-            two: "",
-            three: "",
-            four: "",
-            five: "",
-            six: ""
+            "1": "0",
+            "2": "0",
+            "3": "0",
+            "4": "0",
+            "5": "0",
+            "6": "0"
+
         }
 
     })
@@ -82,8 +84,53 @@ export default function SearchTop() {
         )
     }
 
+    const ChildrenAges = (props) => {
 
-    let saygin = true;
+        return (
+            <div className="d-flex mt-2">
+                <FormControl sx={{ minWidth: 165 }} >
+                    <InputLabel id="Children Age">Age of Children {Number(props.number)}</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+
+                        id="demo-simple-select"
+                        value={props.valueY}
+                        label="Age of Children 1"
+                        onChange={(event) => { setroomDetails((prev) => ({ ...prev, children: { ...prev.children, [props.number]: event.target.value } })) }}
+                    >
+                        <MenuItem value={0}>0</MenuItem>
+                        <MenuItem value={1}>1</MenuItem>
+                        <MenuItem value={2}>2</MenuItem>
+                        <MenuItem value={3}>3</MenuItem>
+                        <MenuItem value={4}>4</MenuItem>
+                        <MenuItem value={5}>5</MenuItem>
+                        <MenuItem value={6}>6</MenuItem>
+                        <MenuItem value={7}>7</MenuItem>
+                        <MenuItem value={8}>8</MenuItem>
+                        <MenuItem value={9}>9</MenuItem>
+                        <MenuItem value={10}>10</MenuItem>
+                        <MenuItem value={11}>11</MenuItem>
+                        <MenuItem value={12}>12</MenuItem>
+                        <MenuItem value={13}>13</MenuItem>
+                        <MenuItem value={14}>14</MenuItem>
+                        <MenuItem value={15}>15</MenuItem>
+                        <MenuItem value={16}>16</MenuItem>
+                        <MenuItem value={17}>17</MenuItem>
+                        <MenuItem value={18}>18</MenuItem>
+                    </Select>
+                </FormControl>
+            </div>
+        )
+    }
+
+    const ChildrenLoopForAges = () => {
+        let tempChildren = [];
+        for (let i = 1; i <= roomDetails.children.numberX; i++) {
+            tempChildren.push(<ChildrenAges number={i} key={i} valueY={roomDetails.children[i]} />);
+        }
+        return tempChildren;
+    };
+
 
 
     return (
@@ -157,12 +204,14 @@ export default function SearchTop() {
 
                 {/* Travellers starting point */}
 
-                <div className="mx-2" ><TextField
-                    label="Travellers" variant="filled"
-                    sx={{ input: { background: "white" } }}
-                    onClickCapture={() => { setBools((prev) => ({ ...prev, travellersPopup: true })) }}
+                <div className="mx-2" >
+                    <TextField
+                        label="Travellers" variant="filled"
+                        sx={{ input: { background: "white" } }}
+                        onClickCapture={() => { setBools((prev) => ({ ...prev, travellersPopup: true })) }}
+                        value={roomDetails.adults + " adults " + roomDetails.children.numberX + " children"}
 
-                />
+                    />
                     <Modal
                         open={bools.travellersPopup}
                         onClose={() => { setBools((prev) => ({ ...prev, travellersPopup: false })) }}
@@ -174,13 +223,13 @@ export default function SearchTop() {
                             "position": 'absolute',
                             "top": '10%',
                             "left": '35%',
-                            "minWidth" : "500px",
-                            "maxWidth": "600px",
+                            "minWidth": "400px",
+                            "maxWidth": "400px",
                             "minHeight": "600px",
                             "backgroundColor": "white"
 
                         }}>
-                            <div><i className="bi bi-x-lg" style={{ "color": "red" }}></i> <span className="mx-3 textMediumBold" >Travellers</span></div>
+                            <div><a href="#"><i className="bi bi-x-lg" onClick={() => { setBools((prev) => ({ ...prev, travellersPopup: false })) }} style={{ "color": "red" }}></i></a> <span className="mx-3 textMediumBold" >Travellers</span></div>
                             <hr></hr>
                             <span className="textMediumBold">Room-1</span>
                             <div className="d-flex flex-row justify-content-between align-items-center my-2 textSmall" >
@@ -201,18 +250,37 @@ export default function SearchTop() {
                                 <div className="align-items-center">Children <br></br> (Age 0-17) </div>
                                 <div className="d-flex flex-row">
                                     <button type="button" className="btn btn-outline-secondary plusMinusButtons p-0"
-                                    disabled={(roomDetails.children.numberX == 0) ? true : false}
-                                     onClick={() => { setroomDetails((prev) => ({ ...prev, children : {...prev.children, numberX : roomDetails.children.numberX-1}})) }}
-                                     >-</button>
+                                        disabled={(roomDetails.children.numberX == 0) ? true : false}
+                                        onClick={() => { setroomDetails((prev) => ({ ...prev, children: { ...prev.children, numberX: roomDetails.children.numberX - 1 } })) }}
+                                    >-</button>
                                     <div className="d-flex mx-3 justify-content-center align-items-center" style={{ "width": "20px" }}>{roomDetails.children.numberX}</div>
                                     <button type="button" className="btn btn-outline-secondary plusMinusButtons p-0"
-                                    disabled={(roomDetails.children.numberX == 6) ? true : false}
-                                    onClick={() => { setroomDetails((prev) => ({ ...prev, children : {...prev.children, numberX : roomDetails.children.numberX+1}})) }}
-                                     >+</button>
+                                        disabled={(roomDetails.children.numberX == 6) ? true : false}
+                                        onClick={() => { setroomDetails((prev) => ({ ...prev, children: { ...prev.children, numberX: roomDetails.children.numberX + 1 } })) }}
+                                    >+</button>
                                 </div>
                             </div>
+                            <div className="d-flex flex-row justify-content-between flex-wrap mt-3" style={{ "maxWidth": "400px" }}>
+
+                                {(roomDetails.children.numberX == 0) ? null :
+
+                                    <ChildrenLoopForAges />
 
 
+
+
+                                }
+
+
+
+
+
+
+
+
+
+
+                            </div>
 
                         </div>
                     </Modal>
