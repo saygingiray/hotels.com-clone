@@ -49,3 +49,22 @@ a:active {
 .textfieldBackground {
   background-color: white;
 }
+
+.textSmall{
+font-family: 'Open Sans', sans-serif;
+font-size: 13px;
+font-weight: 400;
+}
+
+.plusMinusButtons {
+  height: 30px;
+  width: 30px ;
+  border-radius: 50% ;
+  border : 2px solid
+}
+
+.textMediumBold{
+  font-size: 16px;
+  font-weight: 900 
+
+}
