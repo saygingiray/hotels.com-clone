@@ -8,45 +8,17 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import LocationSearchComponent from "./locationsearch";
 
 export default function SearchTop() {
 
     // STATES
 
-    const [searchLocation, setsearchLocation] = React.useState({
-        address: ""
-    });
-
-    const [dateValue, setdateValue] = React.useState({
-        checkin: "",
-        checkout: ""
-    });
-
-    const [roomDetails, setroomDetails] = React.useState({
-        adults: 1,
-        children: {
-            numberX: 0,
-            "1": "0",
-            "2": "0",
-            "3": "0",
-            "4": "0",
-            "5": "0",
-            "6": "0"
-
-        }
-
-    })
-
-    const [incomingData, setincomingData] = React.useState({
-        locationAdvice: [],
-        cityAdvice: [],
-    })
-
-    const [bools, setBools] = React.useState({
-        locationSearchFocus: false,
-        travellersPopup: false,
-
-    })
+    const [searchLocation, setsearchLocation] = React.useState({ address: "" });
+    const [dateValue, setdateValue] = React.useState({ checkin: "", checkout: "" });
+    const [roomDetails, setroomDetails] = React.useState({ adults: 1, children: { numberX: 0, "1": "0", "2": "0", "3": "0", "4": "0", "5": "0", "6": "0" } })
+    const [incomingData, setincomingData] = React.useState({ locationAdvice: [], cityAdvice: [] })
+    const [bools, setBools] = React.useState({ locationSearchFocus: false, travellersPopup: false })
 
     React.useEffect(() => { const timer = setTimeout(() => { fetchLocation() }, 1000); return () => clearTimeout(timer); }, [searchLocation]);
 
@@ -74,15 +46,7 @@ export default function SearchTop() {
     }
 
 
-    const EntriesFromServer = (props) => {
-        return (
-            <>
-                <li className="align-items-center m-0">
-                    <i className="bi bi-geo-fill"></i><span className="m-3">{props.name}</span><span className="badge bg-primary rounded-pill float-end bg-danger">{props.count}</span>
-                </li>
-            </>
-        )
-    }
+
 
     const ChildrenAges = (props) => {
 
@@ -136,38 +100,17 @@ export default function SearchTop() {
     return (
         <div className="d-flex justify-content-center flex-wrap pt-3">
             <div className="d-flex flex-row flex-wrap " style={{ "width": "1200px" }}>
-                <div className="me-2 bg-white">
 
-                    <TextField id="outlined-basic" label="Going to"
-                        sx={{ input: { background: "white", width : "330px"} }}
-                        autoComplete="off" onChange={(event) => { setsearchLocation((prev => ({ ...prev, address: event.target.value }))); setBools((prev => ({ ...prev, locationSearchFocus: true }))) }}
-                        onBlur={() => { setBools((prev => ({ ...prev, locationSearchFocus: false }))) }}
-                        onFocusCapture={() => { setBools((prev => ({ ...prev, locationSearchFocus: true }))) }}
-                        variant="filled"
-                        
-                    />
+                <LocationSearchComponent
+                onchangeX={(event) => { setsearchLocation((prev => ({ ...prev, address: event.target.value }))); setBools((prev => ({ ...prev, locationSearchFocus: true }))) }}
+                onblurX={() => { setBools((prev => ({ ...prev, locationSearchFocus: false }))) }}             
+                onfocuscaptureX={() => { setBools((prev => ({ ...prev, locationSearchFocus: true }))) }} 
+                locationsearchfocusX={bools.locationSearchFocus}
+                addressX={searchLocation.address}
+                cityadviceX={incomingData.cityAdvice}
+                locationadviceX={incomingData.locationAdvice}
+                 />
 
-                    {/* searching tab starting point */}
-
-                    <div className={(!bools.locationSearchFocus) ? "d-none" : "d-flex p-2 animate__animated animate__fadeIn"} style={{
-                        "width": "354px", "backgroundColor": "white", "border": "1px solid  rgba(221, 221, 221, 0.744)",
-                        "borderRadius": "5px", "position": "-webkit-sticky", "position": "sticky"
-                    }}>
-                        <div> {searchLocation.address == "" ? <p>Please search for any city or district. </p> : <>
-                            <p className="boldSmallHeading">City</p>
-                            <ul style={{ "listStyle": "none", "margin": "0", "padding": "0" }}>
-                                {incomingData.cityAdvice.map((z, index) => { return <EntriesFromServer key={index} name={z[0]} count={z[1]} /> })}
-                            </ul>
-
-                            <hr style={{ "width": "330px" }}></hr>
-
-                            <p className="boldSmallHeading">District</p>
-                            <ul style={{ "listStyle": "none", "margin": "0", "padding": "0" }}>
-                                {incomingData.locationAdvice.map((y, index) => { return <EntriesFromServer key={index} name={y[0]} count={y[1]} /> })}
-                            </ul></>}
-                        </div>
-                    </div>
-                </div>
 
                 {/* date-picker starting point */}
 
@@ -273,10 +216,6 @@ export default function SearchTop() {
                     <button type="button" className="btn btn-danger mx-2" style={{ "height": "56px", "width": "200px", "borderTopLeftRadius": "0%", "borderBottomLeftRadius": "0%", "borderTopRightRadius": "20px", "borderBottomRightRadius": "0%", }}>Search</button>
                 </div>
             </div>
-
-
-
-
         </div>
 
 
