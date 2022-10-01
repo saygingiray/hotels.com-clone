@@ -134,23 +134,23 @@ export default function SearchTop() {
 
 
     return (
-        <div className="d-flex justify-content-center pt-3">
-            <div className="d-flex flex-row " style={{ "width": "1200px" }}>
-                <div>
+        <div className="d-flex justify-content-center flex-wrap pt-3">
+            <div className="d-flex flex-row flex-wrap " style={{ "width": "1200px" }}>
+                <div className="me-2 bg-white">
 
                     <TextField id="outlined-basic" label="Going to"
-                        style={{ "backgroundColor": "#ffffff", "width": "330px", "borderRadius": "5px" }}
+                        sx={{ input: { background: "white", width : "330px"} }}
                         autoComplete="off" onChange={(event) => { setsearchLocation((prev => ({ ...prev, address: event.target.value }))); setBools((prev => ({ ...prev, locationSearchFocus: true }))) }}
                         onBlur={() => { setBools((prev => ({ ...prev, locationSearchFocus: false }))) }}
                         onFocusCapture={() => { setBools((prev => ({ ...prev, locationSearchFocus: true }))) }}
                         variant="filled"
-                        sx={{ input: { background: "white" } }}
+                        
                     />
 
                     {/* searching tab starting point */}
 
                     <div className={(!bools.locationSearchFocus) ? "d-none" : "d-flex p-2 animate__animated animate__fadeIn"} style={{
-                        "width": "330px", "backgroundColor": "white", "border": "1px solid  rgba(221, 221, 221, 0.744)",
+                        "width": "354px", "backgroundColor": "white", "border": "1px solid  rgba(221, 221, 221, 0.744)",
                         "borderRadius": "5px", "position": "-webkit-sticky", "position": "sticky"
                     }}>
                         <div> {searchLocation.address == "" ? <p>Please search for any city or district. </p> : <>
@@ -159,7 +159,7 @@ export default function SearchTop() {
                                 {incomingData.cityAdvice.map((z, index) => { return <EntriesFromServer key={index} name={z[0]} count={z[1]} /> })}
                             </ul>
 
-                            <hr style={{ "width": "310px" }}></hr>
+                            <hr style={{ "width": "330px" }}></hr>
 
                             <p className="boldSmallHeading">District</p>
                             <ul style={{ "listStyle": "none", "margin": "0", "padding": "0" }}>
@@ -261,29 +261,16 @@ export default function SearchTop() {
                                 </div>
                             </div>
                             <div className="d-flex flex-row justify-content-between flex-wrap mt-3" style={{ "maxWidth": "400px" }}>
-
-                                {(roomDetails.children.numberX == 0) ? null :
-
-                                    <ChildrenLoopForAges />
-
-
-
-
-                                }
-
-
-
-
-
-
-
-
-
-
+                                {(roomDetails.children.numberX == 0) ? null : <ChildrenLoopForAges />}
                             </div>
 
                         </div>
                     </Modal>
+                </div>
+
+                {/* Submit Button starting point */}
+                <div>
+                    <button type="button" className="btn btn-danger mx-2" style={{ "height": "56px", "width": "200px", "borderTopLeftRadius": "0%", "borderBottomLeftRadius": "0%", "borderTopRightRadius": "20px", "borderBottomRightRadius": "0%", }}>Search</button>
                 </div>
             </div>
 
