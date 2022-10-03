@@ -27,7 +27,13 @@ export default function LocationSearchComponent(props) {
 
             <div className={(!props.locationsearchfocusX) ? "d-none" : "d-flex p-2 animate__animated animate__fadeIn"} style={{
                 "width": "354px", "backgroundColor": "white", "border": "1px solid  rgba(221, 221, 221, 0.744)",
-                "borderRadius": "5px", "position": "-webkit-sticky", "position": "sticky"
+                "borderRadius": "5px", 
+                // "position": "-webkit-sticky", 
+                // "position": "sticky"
+                "position" : "absolute",
+                "zIndex" : "5"
+
+
             }}>
                 <div> {props.addressX == "" ? <p>Please search for any city or district. </p> : <>
                     <p className="boldSmallHeading">City</p>
