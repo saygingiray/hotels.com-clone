@@ -7,6 +7,8 @@ body{
   letter-spacing: -0.7px; 
 }
 
+html { overflow-y: scroll; }
+
 a:link {
   color: red;
   text-decoration: none;

@@ -21,8 +21,8 @@ app.get("/locationSearch", async (req, res) => {
     queryX["address.street"] = { $regex: "(?i)" + datasReceived.address }
 
     let optionsX = {};
-    optionsX.projection = { "_id": 0, 'address.street': 1, 'address.suburb': 1, 'address.market' : 1 };
-    
+    optionsX.projection = { "_id": 0, 'address.street': 1, 'address.suburb': 1, 'address.market': 1 };
+
 
 
     try {
@@ -47,21 +47,44 @@ app.get("/locationSearch", async (req, res) => {
         const dataToSend = {
             totalResults: dataDBX.length,
             suburbs: Object.entries(sortedSuburb),
-            cities : Object.entries(sortedCity),
+            cities: Object.entries(sortedCity),
         }
 
         await res.json(dataToSend);
     }
-    catch (err) { 
+    catch (err) {
+        console.log(err);
+    }
+})
+
+app.get("/nameSearch", async (req, res) => {
+
+    let datasReceived = req.query;
+    console.log(datasReceived);
+
+    let queryX = {};
+    queryX["name"] = { $regex: "(?i)" + datasReceived.name }
+
+    let optionsX = {};
+    optionsX.projection = { "_id": 0, 'address.street': 1, 'name': 1, };
+    optionsX.limit = 20
+
+    try {
+        await client.connect();
+        const dataDBX = await collections.find(queryX, optionsX).toArray();
+        console.log(dataDBX.length)
+        console.log(dataDBX)
+        await res.json(dataDBX);
+    }
+    catch (err) {
         console.log(err);
     }
 
 
+});
 
 
 
-
-})
 
 app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);

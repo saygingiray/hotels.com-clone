@@ -28,6 +28,7 @@ export default function LocationSearchComponent(props) {
             <div className={(!props.locationsearchfocusX) ? "d-none" : "d-flex p-2 animate__animated animate__fadeIn"} style={{
                 "width": "354px", "backgroundColor": "white", "border": "1px solid  rgba(221, 221, 221, 0.744)",
                 "borderRadius": "5px", 
+                "minHeight" : "200px",
                 // "position": "-webkit-sticky", 
                 // "position": "sticky"
                 "position" : "absolute",
@@ -35,7 +36,7 @@ export default function LocationSearchComponent(props) {
 
 
             }}>
-                <div> {props.addressX == "" ? <p>Please search for any city or district. </p> : <>
+                <div> {props.addressX == "" ? <p>Please press spacebar to see all alternatives in used database. </p> : <>
                     <p className="boldSmallHeading">City</p>
                     <ul style={{ "listStyle": "none", "margin": "0", "padding": "0" }}>
                         {props.cityadviceX.map((z, index) => { return <EntriesFromServer key={index} name={z[0]} count={z[1]} /> })}
