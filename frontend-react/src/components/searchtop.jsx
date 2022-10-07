@@ -2,10 +2,10 @@ import React from "react";
 import LocationSearchComponent from "./locationsearch";
 import DatePickerInAndOut from "./datepickerinout";
 import TravellersComponent from "./travellers";
-import { TextField } from "@mui/material";
 import { locationFetch, nameFetch } from "./fetchALL";
 import NameSearch from "./namesearch";
 import PriceRange from "./pricerange";
+import GuestRating from "./guestrating";
 
 export default function SearchTop() {
 
@@ -18,7 +18,8 @@ export default function SearchTop() {
     const [incomingData, setincomingData] = React.useState({ locationAdvice: [], cityAdvice: [], nameAdvice: [] })
     const [bools, setBools] = React.useState({ locationSearchFocus: false, travellersPopup: false, nameSearchFocus: false, locationPreload: false, namePreload: false })
     const [filters, setFilters] = React.useState({
-        priceRange: [30, 250]
+        priceRange: [30, 250],
+        guestRating : "0"
     })
 
 
@@ -128,6 +129,10 @@ export default function SearchTop() {
                         />
                         <PriceRange
                             sendData={(i) => { setFilters(prev => ({ ...prev, priceRange: (i) })) }}
+                        />
+
+                        <GuestRating
+                            sendData={(i) => { setFilters(prev => ({ ...prev, guestRating : (i) })) }}
                         />
 
                     </div>
