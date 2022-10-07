@@ -3,8 +3,9 @@ import LocationSearchComponent from "./locationsearch";
 import DatePickerInAndOut from "./datepickerinout";
 import TravellersComponent from "./travellers";
 import { TextField } from "@mui/material";
-import { locationFetch , nameFetch } from "./fetchALL";
+import { locationFetch, nameFetch } from "./fetchALL";
 import NameSearch from "./namesearch";
+import PriceRange from "./pricerange";
 
 export default function SearchTop() {
 
@@ -15,7 +16,12 @@ export default function SearchTop() {
     const [dateValue, setdateValue] = React.useState({ checkin: "", checkout: "" });
     const [roomDetails, setroomDetails] = React.useState({ adults: 1, children: { numberX: 0, "1": "0", "2": "0", "3": "0", "4": "0", "5": "0", "6": "0" } })
     const [incomingData, setincomingData] = React.useState({ locationAdvice: [], cityAdvice: [], nameAdvice: [] })
-    const [bools, setBools] = React.useState({ locationSearchFocus: false, travellersPopup: false, nameSearchFocus: false, locationPreload : false, namePreload: false })
+    const [bools, setBools] = React.useState({ locationSearchFocus: false, travellersPopup: false, nameSearchFocus: false, locationPreload: false, namePreload: false })
+    const [filters, setFilters] = React.useState({
+        priceRange: [30, 250]
+    })
+
+
 
     React.useEffect(() => { const timer = setTimeout(() => { fetchLocation() }, 750); return () => clearTimeout(timer); }, [searchLocation]);
     React.useEffect(() => { const timer = setTimeout(() => { fetchName() }, 750); return () => clearTimeout(timer); }, [searchName]);
@@ -24,20 +30,20 @@ export default function SearchTop() {
 
     const fetchLocation = async () => {
         if (!searchLocation.address == "") {
-            setBools((prev => ({ ...prev, locationPreload : true })))
+            setBools((prev => ({ ...prev, locationPreload: true })))
             const data = await locationFetch(searchLocation);
             setincomingData((prev => ({ ...prev, locationAdvice: data.suburbs })));
             setincomingData((prev => ({ ...prev, cityAdvice: data.cities })));
-            setBools((prev => ({ ...prev, locationPreload : false })))
+            setBools((prev => ({ ...prev, locationPreload: false })))
         }
     }
 
     const fetchName = async () => {
         if (!searchName.name == "") {
-            setBools((prev => ({ ...prev, namePreload : true })))
+            setBools((prev => ({ ...prev, namePreload: true })))
             const data2 = await nameFetch(searchName);
-            setincomingData((prev => ({ ...prev, nameAdvice: data2 })));          
-            setBools((prev => ({ ...prev, namePreload : false })))
+            setincomingData((prev => ({ ...prev, nameAdvice: data2 })));
+            setBools((prev => ({ ...prev, namePreload: false })))
 
         }
     }
@@ -118,7 +124,10 @@ export default function SearchTop() {
                             nameAdviceX={incomingData.nameAdvice}
                             onblurcaptureX={() => { setBools((prev) => ({ ...prev, nameSearchFocus: false })) }}
                             preloadX={bools.namePreload}
-                          
+
+                        />
+                        <PriceRange
+                            sendData={(i) => { setFilters(prev => ({ ...prev, priceRange: (i) })) }}
                         />
 
                     </div>
