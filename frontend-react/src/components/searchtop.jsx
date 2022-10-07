@@ -6,6 +6,7 @@ import { locationFetch, nameFetch } from "./fetchALL";
 import NameSearch from "./namesearch";
 import PriceRange from "./pricerange";
 import GuestRating from "./guestrating";
+import PropertyClass from "./propertyClass";
 
 export default function SearchTop() {
 
@@ -19,7 +20,8 @@ export default function SearchTop() {
     const [bools, setBools] = React.useState({ locationSearchFocus: false, travellersPopup: false, nameSearchFocus: false, locationPreload: false, namePreload: false })
     const [filters, setFilters] = React.useState({
         priceRange: [30, 250],
-        guestRating : "0"
+        guestRating : "0",
+        filterStars : {1: false , 2: false, 3: false, 4: false, 5: false}
     })
 
 
@@ -134,6 +136,10 @@ export default function SearchTop() {
                         <GuestRating
                             sendData={(i) => { setFilters(prev => ({ ...prev, guestRating : (i) })) }}
                         />
+
+                        <PropertyClass
+                        sendData={(i) => { setFilters(prev => ({ ...prev, filterStars: (i) }))}}
+                         />
 
                     </div>
                     <div className="ms-4">

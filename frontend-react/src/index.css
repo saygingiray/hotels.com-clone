@@ -10,12 +10,12 @@ body{
 html { overflow-y: scroll; }
 
 a:link {
-  color: red;
+  color: rgb(0, 0, 0);
   text-decoration: none;
 }
 
 a:visited {
-  color: red;
+  color: rgb(0, 0, 0);
   text-decoration: none;
 }
 
@@ -93,4 +93,21 @@ font-weight: 900;
 @keyframes preload1 {
   from {background-color: rgb(137, 137, 137);}
   to {background-color: rgba(221, 221, 221, 0.744)}
+}
+
+.starRating {
+  width: 40px ;
+  height : 30px;
+  border: 1px solid black;
+  padding: 2px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.starRating:hover {
+  background-color: rgb(142, 187, 236);
+}
+
+.starRating:link {
+  color:black
 }
