@@ -70,3 +70,20 @@ font-weight: 400;
   font-weight: 900 
 
 }
+
+.preloader1 {
+  max-width : 200px ;
+  min-width : 200px ;
+  background-color: rgba(221, 221, 221, 0.744) ;
+  border : 1px solid rgba(221, 221, 221, 0.744);
+  border-radius: 5px ;
+  height : 12px;
+  animation-name: preload1;
+  animation-duration: 2s;
+  animation-iteration-count: 5;
+}
+
+@keyframes preload1 {
+  from {background-color: rgb(137, 137, 137);}
+  to {background-color: rgba(221, 221, 221, 0.744)}
+}

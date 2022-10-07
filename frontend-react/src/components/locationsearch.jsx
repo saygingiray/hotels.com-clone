@@ -1,5 +1,6 @@
 import React from "react";
 import TextField from '@mui/material/TextField';
+import { borderRadius } from "@mui/system";
 
 const EntriesFromServer = (props) => {
     return (
@@ -27,27 +28,43 @@ export default function LocationSearchComponent(props) {
 
             <div className={(!props.locationsearchfocusX) ? "d-none" : "d-flex p-2 animate__animated animate__fadeIn"} style={{
                 "width": "354px", "backgroundColor": "white", "border": "1px solid  rgba(221, 221, 221, 0.744)",
-                "borderRadius": "5px", 
-                "minHeight" : "200px",
+                "borderRadius": "5px",
+                "minHeight": "200px",
                 // "position": "-webkit-sticky", 
                 // "position": "sticky"
-                "position" : "absolute",
-                "zIndex" : "5"
+                "position": "absolute",
+                "zIndex": "5"
 
 
             }}>
                 <div> {props.addressX == "" ? <p>Please press spacebar to see all alternatives in used database. </p> : <>
                     <p className="boldSmallHeading">City</p>
-                    <ul style={{ "listStyle": "none", "margin": "0", "padding": "0" }}>
-                        {props.cityadviceX.map((z, index) => { return <EntriesFromServer key={index} name={z[0]} count={z[1]} /> })}
-                    </ul>
-
+                    {(props.preloadX) ? <>
+                        <div className="preloader1 my-3" ></div>
+                        <div className="preloader1 my-3" ></div>
+                        <div className="preloader1 my-3" ></div>
+                        <div className="preloader1 my-3" ></div>
+                        <div className="preloader1 my-3" ></div>
+                    </> :
+                        <ul style={{ "listStyle": "none", "margin": "0", "padding": "0" }}>
+                            {props.cityadviceX.map((z, index) => { return <EntriesFromServer key={index} name={z[0]} count={z[1]} /> })}
+                        </ul>
+                    }
                     <hr style={{ "width": "330px" }}></hr>
 
                     <p className="boldSmallHeading">District</p>
+                    {(props.preloadX) ? <>
+                    <div className="preloader1 my-3" ></div>
+                    <div className="preloader1 my-3" ></div>
+                    <div className="preloader1 my-3" ></div>
+                    <div className="preloader1 my-3" ></div>
+                    <div className="preloader1 my-3" ></div>
+                    </> :
+
                     <ul style={{ "listStyle": "none", "margin": "0", "padding": "0" }}>
                         {props.locationadviceX.map((y, index) => { return <EntriesFromServer key={index} name={y[0]} count={y[1]} /> })}
-                    </ul></>}
+                    </ul> }
+                </>}
                 </div>
             </div>
         </div>

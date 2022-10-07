@@ -27,31 +27,38 @@ export default function NameSearch(props) {
                         placeholder="e.g. Hilton"
                         onChangeCapture={props.onchangeX}
                         onBlurCapture={props.onblurcaptureX}
-                        
+
+
 
                     />
                 </div>
             </div>
             <div style={{ "position": "relative" }}>
-                <div className={(!props.nameSearchFocusX || props.searchNameNameX < 1) ? "d-none" : "d-flex p-2 animate__animated animate__fadeIn"} style={{
+                <div className={(!props.nameSearchFocusX || props.searchNameNameX < 1) ? "d-none" : "d-flex flex-column p-2 animate__animated animate__fadeIn"} style={{
                     "width": "354px", "backgroundColor": "white", "border": "1px solid  rgba(221, 221, 221, 0.744)",
                     "borderRadius": "5px",
                     // "position": "-webkit-sticky", 
                     // "position": "sticky"
                     "position": "absolute",
                     "zIndex": "4",
+                    "minHeight": "200px"
                 }}>
-                    <ul style={{ "listStyle": "none", "margin": "0", "padding": "0" }}>
 
-                        {props.nameAdviceX.map((z, index) => { return <NamesFromServer key={index} name={z.name} address={z.address.street} /> })}
+                    {(props.preloadX) ? <>
 
-                    </ul>
+                        <div className="preloader1 my-3" ></div>
+                        <div className="preloader1 my-3" ></div>
+                        <div className="preloader1 my-3" ></div>
+                        <div className="preloader1 my-3" ></div>
 
 
+                    </> :
+                        <ul style={{ "listStyle": "none", "margin": "0", "padding": "0" }}>
+                            {props.nameAdviceX.map((z, index) => { return <NamesFromServer key={index} name={z.name} address={z.address.street} /> })}
 
+                        </ul>}
                 </div>
             </div>
-            <div></div>
         </>
     )
 }

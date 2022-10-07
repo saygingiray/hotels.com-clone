@@ -15,26 +15,29 @@ export default function SearchTop() {
     const [dateValue, setdateValue] = React.useState({ checkin: "", checkout: "" });
     const [roomDetails, setroomDetails] = React.useState({ adults: 1, children: { numberX: 0, "1": "0", "2": "0", "3": "0", "4": "0", "5": "0", "6": "0" } })
     const [incomingData, setincomingData] = React.useState({ locationAdvice: [], cityAdvice: [], nameAdvice: [] })
-    const [bools, setBools] = React.useState({ locationSearchFocus: false, travellersPopup: false, nameSearchFocus: false })
+    const [bools, setBools] = React.useState({ locationSearchFocus: false, travellersPopup: false, nameSearchFocus: false, locationPreload : false, namePreload: false })
 
-    React.useEffect(() => { const timer = setTimeout(() => { fetchLocation() }, 1000); return () => clearTimeout(timer); }, [searchLocation]);
-    React.useEffect(() => { const timer = setTimeout(() => { fetchName() }, 1000); return () => clearTimeout(timer); }, [searchName]);
+    React.useEffect(() => { const timer = setTimeout(() => { fetchLocation() }, 750); return () => clearTimeout(timer); }, [searchLocation]);
+    React.useEffect(() => { const timer = setTimeout(() => { fetchName() }, 750); return () => clearTimeout(timer); }, [searchName]);
 
 
 
     const fetchLocation = async () => {
         if (!searchLocation.address == "") {
+            setBools((prev => ({ ...prev, locationPreload : true })))
             const data = await locationFetch(searchLocation);
             setincomingData((prev => ({ ...prev, locationAdvice: data.suburbs })));
             setincomingData((prev => ({ ...prev, cityAdvice: data.cities })));
+            setBools((prev => ({ ...prev, locationPreload : false })))
         }
     }
 
     const fetchName = async () => {
         if (!searchName.name == "") {
+            setBools((prev => ({ ...prev, namePreload : true })))
             const data2 = await nameFetch(searchName);
             setincomingData((prev => ({ ...prev, nameAdvice: data2 })));          
-            console.log(data2)
+            setBools((prev => ({ ...prev, namePreload : false })))
 
         }
     }
@@ -55,6 +58,7 @@ export default function SearchTop() {
                         addressX={searchLocation.address}
                         cityadviceX={incomingData.cityAdvice}
                         locationadviceX={incomingData.locationAdvice}
+                        preloadX={bools.locationPreload}
                     />
 
                     {/* date-picker starting point */}
@@ -113,6 +117,8 @@ export default function SearchTop() {
                             searchNameNameX={searchName.name}
                             nameAdviceX={incomingData.nameAdvice}
                             onblurcaptureX={() => { setBools((prev) => ({ ...prev, nameSearchFocus: false })) }}
+                            preloadX={bools.namePreload}
+                          
                         />
 
                     </div>
