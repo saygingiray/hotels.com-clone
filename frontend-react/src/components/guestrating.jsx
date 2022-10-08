@@ -12,7 +12,7 @@ export default function GuestRating(props) {
 
 
     return (<>
-        <div className="textMediumBold mt-3">Guest rating</div>
+        <div className="textMediumBold">Guest rating</div>
 
         <RadioGroup
         aria-labelledby="demo-controlled-radio-buttons-group"

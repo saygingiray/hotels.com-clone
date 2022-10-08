@@ -12,7 +12,7 @@ export default function PriceRange(props) {
     React.useEffect(() => { const timer = setTimeout(() => {  props.sendData(sliderHelper) }, 750); return () => clearTimeout(timer); }, [sliderHelper]);
 
     return (<>
-        <div className="textMediumBold mt-3">Price per night</div>
+        <div className="textMediumBold">Price per night</div>
 
         <div className="mt-1" style={{ width: "240px" }}>
             <Slider value={sliderHelper}

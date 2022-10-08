@@ -2,11 +2,15 @@ import React from "react";
 import LocationSearchComponent from "./locationsearch";
 import DatePickerInAndOut from "./datepickerinout";
 import TravellersComponent from "./travellers";
-import { locationFetch, nameFetch } from "./fetchALL";
+import { locationFetch, nameFetch, propertyListFetch } from "./fetchALL";
 import NameSearch from "./namesearch";
 import PriceRange from "./pricerange";
 import GuestRating from "./guestrating";
 import PropertyClass from "./propertyClass";
+import PropertyType from "./propertyType";
+import BedType from "./bedType";
+import Amenities from "./amenities";
+import RoomType from "./roomType";
 
 export default function SearchTop() {
 
@@ -16,19 +20,23 @@ export default function SearchTop() {
     const [searchName, setsearchName] = React.useState({ name: "" })
     const [dateValue, setdateValue] = React.useState({ checkin: "", checkout: "" });
     const [roomDetails, setroomDetails] = React.useState({ adults: 1, children: { numberX: 0, "1": "0", "2": "0", "3": "0", "4": "0", "5": "0", "6": "0" } })
-    const [incomingData, setincomingData] = React.useState({ locationAdvice: [], cityAdvice: [], nameAdvice: [] })
+    const [incomingData, setincomingData] = React.useState({ locationAdvice: [], cityAdvice: [], nameAdvice: [], propertyList: [] })
     const [bools, setBools] = React.useState({ locationSearchFocus: false, travellersPopup: false, nameSearchFocus: false, locationPreload: false, namePreload: false })
     const [filters, setFilters] = React.useState({
         priceRange: [30, 250],
-        guestRating : "0",
-        filterStars : {1: false , 2: false, 3: false, 4: false, 5: false}
+        guestRating: "0",
+        filterStars: { 1: false, 2: false, 3: false, 4: false, 5: false },
+        propertySelected: [],
+        bedTypes: {},
+        amenities: {},
+        roomTypes: {}
     })
 
 
 
     React.useEffect(() => { const timer = setTimeout(() => { fetchLocation() }, 750); return () => clearTimeout(timer); }, [searchLocation]);
     React.useEffect(() => { const timer = setTimeout(() => { fetchName() }, 750); return () => clearTimeout(timer); }, [searchName]);
-
+    React.useEffect(() => { fetchPropertyTypes() }, []);
 
 
     const fetchLocation = async () => {
@@ -51,6 +59,11 @@ export default function SearchTop() {
         }
     }
 
+    const fetchPropertyTypes = async () => {
+        const data = await propertyListFetch();
+        console.log(data);
+        setincomingData((prev => ({ ...prev, propertyList: data })));
+    }
 
     return (
         <>
@@ -129,17 +142,41 @@ export default function SearchTop() {
                             preloadX={bools.namePreload}
 
                         />
+                        <hr></hr>
                         <PriceRange
                             sendData={(i) => { setFilters(prev => ({ ...prev, priceRange: (i) })) }}
                         />
-
+                        <hr></hr>
                         <GuestRating
-                            sendData={(i) => { setFilters(prev => ({ ...prev, guestRating : (i) })) }}
+                            sendData={(i) => { setFilters(prev => ({ ...prev, guestRating: (i) })) }}
                         />
-
+                        <hr></hr>
                         <PropertyClass
-                        sendData={(i) => { setFilters(prev => ({ ...prev, filterStars: (i) }))}}
-                         />
+                            sendData={(i) => { setFilters(prev => ({ ...prev, filterStars: (i) })) }}
+                        />
+                        <hr></hr>
+                        <PropertyType
+                            list={incomingData.propertyList}
+                            filter={filters.propertySelected}
+                            handle={(event) => { const { target: { value }, } = event; setFilters(prev => ({ ...prev, propertySelected: typeof value === 'string' ? value.split(',') : value, })) }}
+
+                        />
+                        <hr></hr>
+                        <Amenities
+                            sendData={(i) => { setFilters(prev => ({ ...prev, amenities: (i) })) }}
+                        />
+                        <hr></hr>
+                        <BedType
+                            sendData={(i) => { setFilters(prev => ({ ...prev, bedTypes: (i) })) }}
+                        />
+                        <hr></hr>
+                        <RoomType
+                            sendData={(i) => { setFilters(prev => ({ ...prev, roomTypes: (i) })) }}
+
+                        />
+                        <hr></hr>
+
+
 
                     </div>
                     <div className="ms-4">

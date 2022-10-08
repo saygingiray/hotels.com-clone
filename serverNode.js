@@ -12,6 +12,8 @@ const collections = database.collection("listingsAndReviews"); // collection nam
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+
+
 app.get("/locationSearch", async (req, res) => {
 
     let datasReceived = req.query;
@@ -22,8 +24,6 @@ app.get("/locationSearch", async (req, res) => {
 
     let optionsX = {};
     optionsX.projection = { "_id": 0, 'address.street': 1, 'address.suburb': 1, 'address.market': 1 };
-
-
 
     try {
         await client.connect();
@@ -84,8 +84,73 @@ app.get("/nameSearch", async (req, res) => {
 });
 
 
+app.get("/propertyList", async (req, res) => {
+    try {
+        await client.connect();
+        const dataDBX = await collections.distinct("property_type")
+        const dataDBX2 = await collections.distinct("room_type")
+        console.log(dataDBX2)
+        await res.json(dataDBX);
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 app.listen(PORT, () => {
+
+
+    let obj = {
+        "India" : {
+        "Karnataka" : ["Bangalore", "Mysore"],
+        "Maharashtra" : ["Mumbai", "Pune"]
+        },
+        "USA" : {
+        "Texas" : ["Dallas", "Houston"],
+        "IL" : ["Chicago", "Aurora", "Pune"]
+        }
+       }
+       
+       function nameCity(e){
+           var finalAns = []
+           var ans = [];
+           ans = Object.keys(e).forEach((a)=>{
+               for(var c in e[a]){
+                   e[a][c].forEach(v=>{
+                       if(v === "Pune"){
+                           finalAns.push(c,a)
+                       }
+                   })
+       
+               }
+           })
+           console.log(finalAns)
+       }
+       
+       
+       nameCity(obj);
+
+
+
     console.log(`Server listening on ${PORT}`);
 })

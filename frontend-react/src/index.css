@@ -111,3 +111,22 @@ font-weight: 900;
 .starRating:link {
   color:black
 }
+
+.seeMore {
+  max-height: 160px;
+  overflow: hidden; 
+
+}
+
+.seeMore-long {
+
+  max-height: 100%;
+  /* animation-name: extend;
+  animation-duration : 0.1s; */
+}
+
+@keyframes extend {
+  from {height: 165px}
+  to { height: 100%; }
+   
+}
