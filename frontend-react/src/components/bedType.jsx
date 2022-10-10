@@ -12,7 +12,6 @@ export default function BedType(props) {
         });
     };
 
-
     const [state, setState] = React.useState({
         'Airbed': false,
         'Couch': false,
@@ -20,9 +19,44 @@ export default function BedType(props) {
         'Pull-out Sofa': false,
         'Real Bed': false
     })
+
     const [seeMore, setSeeMore] = React.useState(true);
 
-    React.useEffect(() => { props.sendData(state) }, [state]);
+    const data = () => {
+        let tempARR = []
+        Object.keys(state).forEach(key => {
+            if (state[key] == true) { tempARR.push(key) }
+        });
+        return tempARR
+    }
+
+    React.useEffect(() => { props.sendData(data()) }, [state]);
+    React.useEffect(() => { changeChecked() }, [props]);
+
+    const changeChecked = () => {
+        // console.log(props.changeXXX)
+        let tempOBJ = {
+            'Airbed': false,
+            'Couch': false,
+            'Futon': false,
+            'Pull-out Sofa': false,
+            'Real Bed': false
+        }
+        { props.changedByXbutton.map((i) => { tempOBJ[i] = true }) }
+
+        // console.log(tempOBJ)
+        // console.log(state)
+        let diff = Object.keys(state).reduce((diff, key) => {
+            if (tempOBJ[key] === state[key]) return diff
+            return {
+                ...diff,
+                [key]: state[key]
+            }
+        }, {})
+        // console.log(Object.keys(diff))
+        let changedKey = Object.keys(diff)[0]
+        if (Object.keys(diff).length > 0) { setState(tempOBJ) }
+    }
 
 
     return (<>

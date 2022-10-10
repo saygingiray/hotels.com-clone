@@ -130,3 +130,15 @@ font-weight: 900;
   to { height: 100%; }
    
 }
+
+.filter-box {
+
+  background-color: rgb(168, 206, 246);
+  border: 1px solid rgba(5, 62, 122, 0.366);
+  border-radius: 10px;
+  padding-left: 10px ;
+  padding-right: 10px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+
+}

@@ -6,7 +6,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 
 export default function GuestRating(props) {
 
-    const [value, setValue] = React.useState('0');
+    const [value, setValue] = React.useState('');
     React.useEffect(() => { props.sendData(value) }, [value]);
 
 
@@ -21,7 +21,7 @@ export default function GuestRating(props) {
         onChange={(event) => {setValue(event.target.value)}}
         
       >
-        <FormControlLabel value="0" control={<Radio />} label="Any" />
+        <FormControlLabel value="" control={<Radio />} label="Any" />
         <FormControlLabel value="9" control={<Radio />} label="Wonderful 9+" />
         <FormControlLabel value="8" control={<Radio />} label="Very Good 8+" />
         <FormControlLabel value="7" control={<Radio />} label="Good 7+" />

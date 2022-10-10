@@ -18,7 +18,16 @@ export default function RoomType(props) {
         'Shared room': false,
     })
 
-    React.useEffect(() => { props.sendData(state) }, [state]);
+    const data = () => {
+        let tempARR = []
+        Object.keys(state).forEach(key => {
+          if  (state[key]==true) { tempARR.push(key)} 
+        });
+        return tempARR
+    }
+
+
+    React.useEffect(() => { props.sendData(data()) }, [state]);
 
 
     return (

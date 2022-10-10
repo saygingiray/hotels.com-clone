@@ -19,7 +19,7 @@ export default function NameSearch(props) {
 
         <>
             <div className="d-flex" style={{ "width": "250px" }}>
-                <div><p className="textMediumBold mb-1">Search Property by Name </p>
+                <div><p className="textMediumBold mb-1 ">Search Property by Name </p>
                     <TextField
                         sx={{ input: { background: "white", width: "220px" } }}
                         label="Property Name" variant="filled"

@@ -12,7 +12,16 @@ export default function PropertyClass(props) {
         "5": false
     });
 
-    React.useEffect(() => { props.sendData(value) }, [value]);
+    const data = () => {
+        let tempARR = []
+        Object.keys(value).forEach(key => {
+          if  (value[key]==true) { tempARR.push(key)} 
+        });
+        return tempARR
+    }
+
+
+    React.useEffect(() => { props.sendData(data());  }, [value]);
 
     return (
         <>

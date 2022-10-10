@@ -11,6 +11,7 @@ import PropertyType from "./propertyType";
 import BedType from "./bedType";
 import Amenities from "./amenities";
 import RoomType from "./roomType";
+import { FilterBedTypes } from "./filtersTopView";
 
 export default function SearchTop() {
 
@@ -24,15 +25,48 @@ export default function SearchTop() {
     const [bools, setBools] = React.useState({ locationSearchFocus: false, travellersPopup: false, nameSearchFocus: false, locationPreload: false, namePreload: false })
     const [filters, setFilters] = React.useState({
         priceRange: [30, 250],
-        guestRating: "0",
-        filterStars: { 1: false, 2: false, 3: false, 4: false, 5: false },
+        guestRating: "",
+        propertyClass: [],
         propertySelected: [],
-        bedTypes: {},
-        amenities: {},
-        roomTypes: {}
+        bedTypes: [],
+        amenities: [],
+        roomTypes: []
     })
 
 
+// seçimleri ortaya getirelim artık
+
+
+
+// let obj = {
+//     "India" : {
+//     "Karnataka" : ["Bangalore", "Mysore"],
+//     "Maharashtra" : ["Mumbai", "Pune"]
+//     },
+//     "USA" : {
+//     "Texas" : ["Dallas", "Houston"],
+//     "IL" : ["Chicago", "Aurora", "Pune"]
+//     }
+//    }
+   
+//    function nameCity(e){
+//        var finalAns = []
+//        var ans = [];
+//        ans = Object.keys(e).forEach((a)=>{
+//            for(var c in e[a]){
+//                e[a][c].forEach(v=>{
+//                    if(v === "Pune"){
+//                        finalAns.push(c,a)
+//                    }
+//                })
+   
+//            }
+//        })
+//        console.log(finalAns)
+//    }
+   
+   
+//    nameCity(obj);
 
     React.useEffect(() => { const timer = setTimeout(() => { fetchLocation() }, 750); return () => clearTimeout(timer); }, [searchLocation]);
     React.useEffect(() => { const timer = setTimeout(() => { fetchName() }, 750); return () => clearTimeout(timer); }, [searchName]);
@@ -61,9 +95,10 @@ export default function SearchTop() {
 
     const fetchPropertyTypes = async () => {
         const data = await propertyListFetch();
-        console.log(data);
+        // console.log(data);
         setincomingData((prev => ({ ...prev, propertyList: data })));
     }
+
 
     return (
         <>
@@ -143,18 +178,13 @@ export default function SearchTop() {
 
                         />
                         <hr></hr>
+
+                       
                         <PriceRange
                             sendData={(i) => { setFilters(prev => ({ ...prev, priceRange: (i) })) }}
                         />
                         <hr></hr>
-                        <GuestRating
-                            sendData={(i) => { setFilters(prev => ({ ...prev, guestRating: (i) })) }}
-                        />
-                        <hr></hr>
-                        <PropertyClass
-                            sendData={(i) => { setFilters(prev => ({ ...prev, filterStars: (i) })) }}
-                        />
-                        <hr></hr>
+
                         <PropertyType
                             list={incomingData.propertyList}
                             filter={filters.propertySelected}
@@ -162,24 +192,46 @@ export default function SearchTop() {
 
                         />
                         <hr></hr>
-                        <Amenities
-                            sendData={(i) => { setFilters(prev => ({ ...prev, amenities: (i) })) }}
+                        <GuestRating
+                            sendData={(i) => { setFilters(prev => ({ ...prev, guestRating: (i) })) }}
                         />
                         <hr></hr>
-                        <BedType
-                            sendData={(i) => { setFilters(prev => ({ ...prev, bedTypes: (i) })) }}
+                        <PropertyClass
+                            sendData={(i) => { setFilters(prev => ({ ...prev, propertyClass: (i) })) }}
                         />
                         <hr></hr>
+                        
                         <RoomType
                             sendData={(i) => { setFilters(prev => ({ ...prev, roomTypes: (i) })) }}
 
                         />
                         <hr></hr>
 
+                        <Amenities
+                            sendData={(i) => { setFilters(prev => ({ ...prev, amenities: (i) })) }}
+                        />
+                        <hr></hr>
+                        <BedType
+                            sendData={(i) => { setFilters(prev => ({ ...prev, bedTypes: (i) })) }}
+                            changedByXbutton={filters.bedTypes}
+                        />
+                        <hr></hr>
+                       
+
 
 
                     </div>
+                    
+                    {/* RIGHT SIDE STARTS HERE */}
+                    
                     <div className="ms-4">
+                    
+                    <FilterBedTypes 
+                    data={filters.bedTypes}
+                    delete={(i) => { let tempARR=filters.bedTypes ; tempARR.splice(i,1); setFilters(prev => ({ ...prev, bedTypes: tempARR })) }} 
+                     />
+                    
+                    
                     </div>
                 </div>
             </div>
