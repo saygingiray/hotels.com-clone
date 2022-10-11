@@ -11,7 +11,7 @@ import PropertyType from "./propertyType";
 import BedType from "./bedType";
 import Amenities from "./amenities";
 import RoomType from "./roomType";
-import { FilterBedTypes } from "./filtersTopView";
+import FilterShown from "./filtersTopView";
 
 export default function SearchTop() {
 
@@ -25,7 +25,7 @@ export default function SearchTop() {
     const [bools, setBools] = React.useState({ locationSearchFocus: false, travellersPopup: false, nameSearchFocus: false, locationPreload: false, namePreload: false })
     const [filters, setFilters] = React.useState({
         priceRange: [30, 250],
-        guestRating: "",
+        guestRating: [],
         propertyClass: [],
         propertySelected: [],
         bedTypes: [],
@@ -34,39 +34,39 @@ export default function SearchTop() {
     })
 
 
-// seçimleri ortaya getirelim artık
+    // seçimleri ortaya getirelim artık
 
 
 
-// let obj = {
-//     "India" : {
-//     "Karnataka" : ["Bangalore", "Mysore"],
-//     "Maharashtra" : ["Mumbai", "Pune"]
-//     },
-//     "USA" : {
-//     "Texas" : ["Dallas", "Houston"],
-//     "IL" : ["Chicago", "Aurora", "Pune"]
-//     }
-//    }
-   
-//    function nameCity(e){
-//        var finalAns = []
-//        var ans = [];
-//        ans = Object.keys(e).forEach((a)=>{
-//            for(var c in e[a]){
-//                e[a][c].forEach(v=>{
-//                    if(v === "Pune"){
-//                        finalAns.push(c,a)
-//                    }
-//                })
-   
-//            }
-//        })
-//        console.log(finalAns)
-//    }
-   
-   
-//    nameCity(obj);
+    // let obj = {
+    //     "India" : {
+    //     "Karnataka" : ["Bangalore", "Mysore"],
+    //     "Maharashtra" : ["Mumbai", "Pune"]
+    //     },
+    //     "USA" : {
+    //     "Texas" : ["Dallas", "Houston"],
+    //     "IL" : ["Chicago", "Aurora", "Pune"]
+    //     }
+    //    }
+
+    //    function nameCity(e){
+    //        var finalAns = []
+    //        var ans = [];
+    //        ans = Object.keys(e).forEach((a)=>{
+    //            for(var c in e[a]){
+    //                e[a][c].forEach(v=>{
+    //                    if(v === "Pune"){
+    //                        finalAns.push(c,a)
+    //                    }
+    //                })
+
+    //            }
+    //        })
+    //        console.log(finalAns)
+    //    }
+
+
+    //    nameCity(obj);
 
     React.useEffect(() => { const timer = setTimeout(() => { fetchLocation() }, 750); return () => clearTimeout(timer); }, [searchLocation]);
     React.useEffect(() => { const timer = setTimeout(() => { fetchName() }, 750); return () => clearTimeout(timer); }, [searchName]);
@@ -179,7 +179,7 @@ export default function SearchTop() {
                         />
                         <hr></hr>
 
-                       
+
                         <PriceRange
                             sendData={(i) => { setFilters(prev => ({ ...prev, priceRange: (i) })) }}
                         />
@@ -198,17 +198,22 @@ export default function SearchTop() {
                         <hr></hr>
                         <PropertyClass
                             sendData={(i) => { setFilters(prev => ({ ...prev, propertyClass: (i) })) }}
+                            changedByXbutton={filters.propertyClass}
+
                         />
                         <hr></hr>
-                        
+
                         <RoomType
                             sendData={(i) => { setFilters(prev => ({ ...prev, roomTypes: (i) })) }}
+                            changedByXbutton={filters.roomTypes}
 
                         />
                         <hr></hr>
 
                         <Amenities
                             sendData={(i) => { setFilters(prev => ({ ...prev, amenities: (i) })) }}
+                            changedByXbutton={filters.amenities}
+
                         />
                         <hr></hr>
                         <BedType
@@ -216,22 +221,49 @@ export default function SearchTop() {
                             changedByXbutton={filters.bedTypes}
                         />
                         <hr></hr>
-                       
+
 
 
 
                     </div>
-                    
+
                     {/* RIGHT SIDE STARTS HERE */}
-                    
+
                     <div className="ms-4">
-                    
-                    <FilterBedTypes 
-                    data={filters.bedTypes}
-                    delete={(i) => { let tempARR=filters.bedTypes ; tempARR.splice(i,1); setFilters(prev => ({ ...prev, bedTypes: tempARR })) }} 
-                     />
-                    
-                    
+
+                        {/* Filtered Items to be shown */}
+
+
+                        <div className="d-flex flex-row flex-wrap">
+                            <FilterShown
+                                data={filters.bedTypes}
+                                delete={(i) => { let tempARR = filters.bedTypes; tempARR.splice(i, 1); setFilters(prev => ({ ...prev, bedTypes: tempARR })) }}
+                            />
+
+                            <FilterShown
+                                data={filters.amenities}
+                                delete={(i) => { let tempARR = filters.amenities; tempARR.splice(i, 1); setFilters(prev => ({ ...prev, amenities: tempARR })) }}
+                            />
+
+                            <FilterShown
+                                data={filters.roomTypes}
+                                delete={(i) => { let tempARR = filters.roomTypes; tempARR.splice(i, 1); setFilters(prev => ({ ...prev, roomTypes: tempARR })) }}
+                            />
+
+                            <FilterShown
+                                data={filters.propertyClass}
+                                delete={(i) => { let tempARR = filters.propertyClass; tempARR.splice(i, 1); setFilters(prev => ({ ...prev, propertyClass: tempARR })) }}
+                            />
+
+                            <FilterShown
+                                data={filters.propertySelected}
+                                delete={(i) => { let tempARR = filters.propertySelected; tempARR.splice(i, 1); setFilters(prev => ({ ...prev, propertySelected: tempARR })) }}
+                            />
+                            <FilterShown
+                                data={filters.guestRating}
+                                delete={(i) => { let tempARR = filters.guestRating; tempARR.splice(i, 1); setFilters(prev => ({ ...prev, guestRating: tempARR })) }}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

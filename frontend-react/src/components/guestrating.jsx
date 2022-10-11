@@ -6,7 +6,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 
 export default function GuestRating(props) {
 
-    const [value, setValue] = React.useState('');
+    const [value, setValue] = React.useState([]);
     React.useEffect(() => { props.sendData(value) }, [value]);
 
 
@@ -18,13 +18,13 @@ export default function GuestRating(props) {
         aria-labelledby="demo-controlled-radio-buttons-group"
         name="controlled-radio-buttons-group"
         value={value}
-        onChange={(event) => {setValue(event.target.value)}}
+        onChange={(event) => {setValue([event.target.value])}}
         
       >
         <FormControlLabel value="" control={<Radio />} label="Any" />
-        <FormControlLabel value="9" control={<Radio />} label="Wonderful 9+" />
-        <FormControlLabel value="8" control={<Radio />} label="Very Good 8+" />
-        <FormControlLabel value="7" control={<Radio />} label="Good 7+" />
+        <FormControlLabel value="9+ Reviews" control={<Radio />} label="Wonderful 9+" />
+        <FormControlLabel value="8+ Reviews" control={<Radio />} label="Very Good 8+" />
+        <FormControlLabel value="7+ Reviews" control={<Radio />} label="Good 7+" />
       </RadioGroup>
 
 </>)

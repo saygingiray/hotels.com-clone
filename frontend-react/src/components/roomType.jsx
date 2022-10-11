@@ -28,6 +28,30 @@ export default function RoomType(props) {
 
 
     React.useEffect(() => { props.sendData(data()) }, [state]);
+    React.useEffect(() => { changeChecked() }, [props]);
+
+    const changeChecked = () => {
+        // console.log(props.changeXXX)
+        let tempOBJ = {
+            'Entire home/apt': false,
+            'Private room': false,
+            'Shared room': false,
+        }
+        { props.changedByXbutton.map((i) => { tempOBJ[i] = true }) }
+
+        // console.log(tempOBJ)
+        // console.log(state)
+        let diff = Object.keys(state).reduce((diff, key) => {
+            if (tempOBJ[key] === state[key]) return diff
+            return {
+                ...diff,
+                [key]: state[key]
+            }
+        }, {})
+        // console.log(Object.keys(diff))
+        let changedKey = Object.keys(diff)[0]
+        if (Object.keys(diff).length > 0) { setState(tempOBJ) }
+    }
 
 
     return (
@@ -39,17 +63,6 @@ export default function RoomType(props) {
                 <FormControlLabel control={<Checkbox checked={state["Shared room"]} name="Shared room" onChange={handleChange} />} label="Shared room" />
             
             </FormGroup>
-
-
-
-
-
-
-
-
-
-
-
 
         </>)
 }

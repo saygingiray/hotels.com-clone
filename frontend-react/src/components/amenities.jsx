@@ -45,6 +45,35 @@ export default function Amenities(props) {
     }
 
     React.useEffect(() => { props.sendData(data()) }, [state]);
+    React.useEffect(() => { changeChecked() }, [props]);
+
+    const changeChecked = () => {
+        // console.log(props.changeXXX)
+        let tempOBJ = {
+            'Air conditioning': false,
+            '24-hour check-in': false,
+            'Beach view': false,
+            'Breakfast': false,
+            'Kitchen': false,
+            'Smoking allowed': false,
+            'Cleaning before checkout': false,
+            'Dishwasher': false
+        }
+        { props.changedByXbutton.map((i) => { tempOBJ[i] = true }) }
+
+        // console.log(tempOBJ)
+        // console.log(state)
+        let diff = Object.keys(state).reduce((diff, key) => {
+            if (tempOBJ[key] === state[key]) return diff
+            return {
+                ...diff,
+                [key]: state[key]
+            }
+        }, {})
+        // console.log(Object.keys(diff))
+        let changedKey = Object.keys(diff)[0]
+        if (Object.keys(diff).length > 0) { setState(tempOBJ) }
+    }
 
     return (
         <>
