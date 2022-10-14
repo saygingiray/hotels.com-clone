@@ -142,3 +142,19 @@ font-weight: 900;
   padding-top: 5px;
 
 }
+
+.searchButton {
+
+  height: 56px;
+  width : 200px ;
+  border-top-left-radius : 0%; 
+  border-bottom-left-radius : 0%;
+  border-top-right-radius : 20px; 
+  border-bottom-right-radius : 0%
+
+
+}
+
+.table-borderless>thead>tr>th, .table-borderless>tbody>tr>th, .table-borderless>tfoot>tr>th, .table-borderless>thead>tr>td, .table-borderless>tbody>tr>td, .table-borderless>tfoot>tr>td{
+  padding: 0px;
+}

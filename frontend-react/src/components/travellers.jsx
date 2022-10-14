@@ -68,10 +68,10 @@ export default function TravellersComponent(props){
 
 return (<>
 
-<div className="mx-2" >
+<div className="ms-2" >
                     <TextField
                         label="Travellers" variant="filled"
-                        sx={{ input: { background: "white" } }}
+                        sx={{ input: { background: "white", width: "255px" } }}
                         onClickCapture={props.onclickcaptureX}
                         value={props.valuefortextfield}
 

@@ -12,6 +12,8 @@ import BedType from "./bedType";
 import Amenities from "./amenities";
 import RoomType from "./roomType";
 import FilterShown from "./filtersTopView";
+import SortBy from "./sortBy";
+import Results from "./results";
 
 export default function SearchTop() {
 
@@ -30,7 +32,8 @@ export default function SearchTop() {
         propertySelected: [],
         bedTypes: [],
         amenities: [],
-        roomTypes: []
+        roomTypes: [],
+        sortBy: ""
     })
 
 
@@ -151,8 +154,8 @@ export default function SearchTop() {
 
 
                     {/* Submit Button starting point */}
-                    <div>
-                        <button type="button" className="btn btn-danger mx-2" style={{ "height": "56px", "width": "200px", "borderTopLeftRadius": "0%", "borderBottomLeftRadius": "0%", "borderTopRightRadius": "20px", "borderBottomRightRadius": "0%", }}>Search</button>
+                    <div className="ms-auto">
+                        <button type="button" className="btn btn-danger searchButton" >Search</button>
                     </div>
                 </div>
             </div>
@@ -229,41 +232,57 @@ export default function SearchTop() {
 
                     {/* RIGHT SIDE STARTS HERE */}
 
-                    <div className="ms-4">
+                    <div className="ms-4 w-100">
 
-                        {/* Filtered Items to be shown */}
+                        {/* Filtered Items to be shown + sortby  */}
+
+                        <div className="d-flex w-100">
+                            <div className="d-flex flex-column">
+                                <div className="d-flex flex-row flex-wrap ">
+                                    <FilterShown
+                                        data={filters.bedTypes}
+                                        delete={(i) => { let tempARR = filters.bedTypes; tempARR.splice(i, 1); setFilters(prev => ({ ...prev, bedTypes: tempARR })) }}
+                                    />
+
+                                    <FilterShown
+                                        data={filters.amenities}
+                                        delete={(i) => { let tempARR = filters.amenities; tempARR.splice(i, 1); setFilters(prev => ({ ...prev, amenities: tempARR })) }}
+                                    />
+
+                                    <FilterShown
+                                        data={filters.roomTypes}
+                                        delete={(i) => { let tempARR = filters.roomTypes; tempARR.splice(i, 1); setFilters(prev => ({ ...prev, roomTypes: tempARR })) }}
+                                    />
+
+                                    <FilterShown
+                                        data={filters.propertyClass}
+                                        delete={(i) => { let tempARR = filters.propertyClass; tempARR.splice(i, 1); setFilters(prev => ({ ...prev, propertyClass: tempARR })) }}
+                                    />
+
+                                    <FilterShown
+                                        data={filters.propertySelected}
+                                        delete={(i) => { let tempARR = filters.propertySelected; tempARR.splice(i, 1); setFilters(prev => ({ ...prev, propertySelected: tempARR })) }}
+                                    />
+                                    <FilterShown
+                                        data={filters.guestRating}
+                                        delete={(i) => { let tempARR = filters.guestRating; tempARR.splice(i, 1); setFilters(prev => ({ ...prev, guestRating: tempARR })) }}
+                                    />
+
+                                </div>
+                                <div className="textSmall">323 properties found.</div>
+                            </div>
+                            <div className="textSmall ms-auto">
+                                <SortBy
+                                    sendData={(i) => { setFilters(prev => ({ ...prev, sortBy: (i) })) }}
+                                />
 
 
-                        <div className="d-flex flex-row flex-wrap">
-                            <FilterShown
-                                data={filters.bedTypes}
-                                delete={(i) => { let tempARR = filters.bedTypes; tempARR.splice(i, 1); setFilters(prev => ({ ...prev, bedTypes: tempARR })) }}
-                            />
+                            </div>
 
-                            <FilterShown
-                                data={filters.amenities}
-                                delete={(i) => { let tempARR = filters.amenities; tempARR.splice(i, 1); setFilters(prev => ({ ...prev, amenities: tempARR })) }}
-                            />
-
-                            <FilterShown
-                                data={filters.roomTypes}
-                                delete={(i) => { let tempARR = filters.roomTypes; tempARR.splice(i, 1); setFilters(prev => ({ ...prev, roomTypes: tempARR })) }}
-                            />
-
-                            <FilterShown
-                                data={filters.propertyClass}
-                                delete={(i) => { let tempARR = filters.propertyClass; tempARR.splice(i, 1); setFilters(prev => ({ ...prev, propertyClass: tempARR })) }}
-                            />
-
-                            <FilterShown
-                                data={filters.propertySelected}
-                                delete={(i) => { let tempARR = filters.propertySelected; tempARR.splice(i, 1); setFilters(prev => ({ ...prev, propertySelected: tempARR })) }}
-                            />
-                            <FilterShown
-                                data={filters.guestRating}
-                                delete={(i) => { let tempARR = filters.guestRating; tempARR.splice(i, 1); setFilters(prev => ({ ...prev, guestRating: tempARR })) }}
-                            />
                         </div>
+
+                        <Results />
+
                     </div>
                 </div>
             </div>
