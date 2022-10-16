@@ -22,9 +22,9 @@ export default function GuestRating(props) {
         
       >
         <FormControlLabel value="" control={<Radio />} label="Any" />
-        <FormControlLabel value="9+ Reviews" control={<Radio />} label="Wonderful 9+" />
-        <FormControlLabel value="8+ Reviews" control={<Radio />} label="Very Good 8+" />
-        <FormControlLabel value="7+ Reviews" control={<Radio />} label="Good 7+" />
+        <FormControlLabel value="90+ Rating Points" control={<Radio />} label="Wonderful 90+" />
+        <FormControlLabel value="80+ Rating Points" control={<Radio />} label="Very Good 80+" />
+        <FormControlLabel value="70+ Rating Points" control={<Radio />} label="Good 70+" />
       </RadioGroup>
 
 </>)

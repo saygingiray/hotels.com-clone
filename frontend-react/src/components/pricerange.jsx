@@ -9,7 +9,10 @@ import TextField from '@mui/material/TextField';
 export default function PriceRange(props) {
 
     const [sliderHelper, setsliderHelper] = React.useState([30, 250]);
-    React.useEffect(() => { const timer = setTimeout(() => {  props.sendData(sliderHelper) }, 750); return () => clearTimeout(timer); }, [sliderHelper]);
+    const [sliderToSend , setsliderToSend ] = React.useState([])
+    
+    React.useEffect(() => { props.sendData(sliderToSend) }, [sliderToSend]);
+
 
     return (<>
         <div className="textMediumBold">Price per night</div>
@@ -17,7 +20,7 @@ export default function PriceRange(props) {
         <div className="mt-1" style={{ width: "240px" }}>
             <Slider value={sliderHelper}
                 onChange={(event, newValue) => { setsliderHelper(newValue) }}
-                // onChangeCommitted={props.onchangecommittedX(sliderHelper)}
+                onChangeCommitted={(event, newValue) => {setsliderToSend(sliderHelper)}}
                 min={5} step={15} max={1000} valueLabelDisplay="auto" />
         </div>
 
@@ -33,7 +36,7 @@ export default function PriceRange(props) {
             <div>-</div>
             <div>
                 <TextField
-                    id="outlined-number" name="priceTo" label="To" type="number"
+                    id="outlined-number2" name="priceTo" label="To" type="number"
                     style={{ width: "100px" }}
                     value={sliderHelper[1]}
                     onChange={(event) => { let tempArr = [sliderHelper[0], Number(event.target.value)]; setsliderHelper(tempArr)}}

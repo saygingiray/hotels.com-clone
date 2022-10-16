@@ -78,7 +78,7 @@ export default function Results(props) {
                             <td className="textSmall fw-bold">Airbed</td>
                         </tr>
                         <tr>
-                            <td><i class="bi bi-gear"></i></td>
+                            <td><i className="bi bi-gear"></i></td>
                             <td className="textSmall fw-bold link-primary">Amenities</td>
                         </tr>
                         </tbody>

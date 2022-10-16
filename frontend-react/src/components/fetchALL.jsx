@@ -1,17 +1,19 @@
 import React from "react";
 
+const requestOptions = {
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+    },
+};
+
 export async function locationFetch(x) {
 
     let tempData = [];
     let tempData2 = [];
     const tempQuery = '/locationSearch?' + new URLSearchParams(x).toString()
     // console.log(tempQuery);
-    const requestOptions = {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-    };
+   
     // if (!props.searchLocationX.address == "") {
     await fetch(tempQuery, requestOptions)
         .then(response => response.json())
@@ -36,12 +38,7 @@ export async function nameFetch(x) {
     let tempData2 = [];
     const tempQuery = '/nameSearch?' + new URLSearchParams(x).toString()
     // console.log(tempQuery);
-    const requestOptions = {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-    };
+
     // if (!props.searchLocationX.address == "") {
     await fetch(tempQuery, requestOptions)
         .then(response => response.json())
@@ -60,12 +57,7 @@ export async function propertyListFetch() {
     let tempData = [];
     const tempQuery = '/propertyList' 
     // console.log(tempQuery);
-    const requestOptions = {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-    };
+
     // if (!props.searchLocationX.address == "") {
     await fetch(tempQuery, requestOptions)
         .then(response => response.json())
@@ -73,3 +65,12 @@ export async function propertyListFetch() {
 
     return tempData;
 }    
+
+
+export async function searchResultsFromServer(x) {
+
+    await fetch(x, requestOptions)
+
+ 
+
+}

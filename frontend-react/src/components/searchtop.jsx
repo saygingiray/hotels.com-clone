@@ -1,8 +1,9 @@
 import React from "react";
+import Header from './header';
 import LocationSearchComponent from "./locationsearch";
 import DatePickerInAndOut from "./datepickerinout";
 import TravellersComponent from "./travellers";
-import { locationFetch, nameFetch, propertyListFetch } from "./fetchALL";
+import { locationFetch, nameFetch, propertyListFetch, searchResultsFromServer } from "./fetchALL";
 import NameSearch from "./namesearch";
 import PriceRange from "./pricerange";
 import GuestRating from "./guestrating";
@@ -74,6 +75,7 @@ export default function SearchTop() {
     React.useEffect(() => { const timer = setTimeout(() => { fetchLocation() }, 750); return () => clearTimeout(timer); }, [searchLocation]);
     React.useEffect(() => { const timer = setTimeout(() => { fetchName() }, 750); return () => clearTimeout(timer); }, [searchName]);
     React.useEffect(() => { fetchPropertyTypes() }, []);
+    React.useEffect(() => { searchResults() }, [filters]);
 
 
     const fetchLocation = async () => {
@@ -103,8 +105,18 @@ export default function SearchTop() {
     }
 
 
+    const searchResults = async ()=> {
+       const queryString=  '/search?' + new URLSearchParams(filters).toString()
+
+       console.log(queryString)
+
+       searchResultsFromServer(queryString);
+
+    }
+
     return (
         <>
+        <Header />
             <div className="d-flex justify-content-center flex-wrap pt-3" style={{}}>
                 <div className="d-flex flex-row flex-wrap " style={{ "width": "1200px" }}>
 

@@ -12,7 +12,7 @@ export default function SortBy(props) {
     };
 
     return (
-        <select onChange={handleChange} className="form-select  fs-6 fw-normal" style={{"width": "270px"}} aria-label="Default select example">
+        <select defaultValue={""} onChange={handleChange} className="form-select  fs-6 fw-normal" style={{"width": "270px"}} aria-label="Default select example">
             <option value="" >Sort By Recommended</option>
             <option value="PriceAsc">Price Ascending</option>
             <option value="PriceDes">Price Descending</option>
