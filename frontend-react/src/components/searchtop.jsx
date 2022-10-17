@@ -24,7 +24,7 @@ export default function SearchTop() {
     const [searchName, setsearchName] = React.useState({ name: "" })
     const [dateValue, setdateValue] = React.useState({ checkin: "", checkout: "" });
     const [roomDetails, setroomDetails] = React.useState({ adults: 1, children: { numberX: 0, "1": "0", "2": "0", "3": "0", "4": "0", "5": "0", "6": "0" } })
-    const [incomingData, setincomingData] = React.useState({ locationAdvice: [], cityAdvice: [], nameAdvice: [], propertyList: [] })
+    const [incomingData, setincomingData] = React.useState({ locationAdvice: [], cityAdvice: [], nameAdvice: [], propertyList: [] , numberOfSeearch: "", results: [] })
     const [bools, setBools] = React.useState({ locationSearchFocus: false, travellersPopup: false, nameSearchFocus: false, locationPreload: false, namePreload: false })
     const [filters, setFilters] = React.useState({
         priceRange: [30, 250],
@@ -37,40 +37,6 @@ export default function SearchTop() {
         sortBy: ""
     })
 
-
-    // seçimleri ortaya getirelim artık
-
-
-
-    // let obj = {
-    //     "India" : {
-    //     "Karnataka" : ["Bangalore", "Mysore"],
-    //     "Maharashtra" : ["Mumbai", "Pune"]
-    //     },
-    //     "USA" : {
-    //     "Texas" : ["Dallas", "Houston"],
-    //     "IL" : ["Chicago", "Aurora", "Pune"]
-    //     }
-    //    }
-
-    //    function nameCity(e){
-    //        var finalAns = []
-    //        var ans = [];
-    //        ans = Object.keys(e).forEach((a)=>{
-    //            for(var c in e[a]){
-    //                e[a][c].forEach(v=>{
-    //                    if(v === "Pune"){
-    //                        finalAns.push(c,a)
-    //                    }
-    //                })
-
-    //            }
-    //        })
-    //        console.log(finalAns)
-    //    }
-
-
-    //    nameCity(obj);
 
     React.useEffect(() => { const timer = setTimeout(() => { fetchLocation() }, 750); return () => clearTimeout(timer); }, [searchLocation]);
     React.useEffect(() => { const timer = setTimeout(() => { fetchName() }, 750); return () => clearTimeout(timer); }, [searchName]);
@@ -107,11 +73,11 @@ export default function SearchTop() {
 
     const searchResults = async ()=> {
        const queryString=  '/search?' + new URLSearchParams(filters).toString()
+    //    console.log(queryString)
+       const dataFromFetch = await searchResultsFromServer(queryString);
+       setincomingData((prev => ({ ...prev, numberOfSeearch : dataFromFetch.number, results: dataFromFetch.data  })));
 
-       console.log(queryString)
-
-       searchResultsFromServer(queryString);
-
+              
     }
 
     return (
@@ -281,7 +247,7 @@ export default function SearchTop() {
                                     />
 
                                 </div>
-                                <div className="textSmall">323 properties found.</div>
+                                <div className="textSmall">{incomingData.numberOfSeearch} properties found.</div>
                             </div>
                             <div className="textSmall ms-auto">
                                 <SortBy
@@ -293,7 +259,10 @@ export default function SearchTop() {
 
                         </div>
 
-                        <Results />
+                        <Results
+                        data = {incomingData.results}
+
+                        />
 
                     </div>
                 </div>

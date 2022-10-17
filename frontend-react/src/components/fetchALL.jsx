@@ -68,9 +68,13 @@ export async function propertyListFetch() {
 
 
 export async function searchResultsFromServer(x) {
+    let valueX = {};
 
     await fetch(x, requestOptions)
+    .then(response => response.json())
+    .then((value) => { valueX = value });
 
- 
+    return valueX;
+
 
 }

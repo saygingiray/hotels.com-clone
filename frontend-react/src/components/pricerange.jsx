@@ -9,11 +9,11 @@ import TextField from '@mui/material/TextField';
 export default function PriceRange(props) {
 
     const [sliderHelper, setsliderHelper] = React.useState([30, 250]);
-    const [sliderToSend , setsliderToSend ] = React.useState([])
+    const [sliderToSend , setsliderToSend ] = React.useState([30,250])
     
     React.useEffect(() => { props.sendData(sliderToSend) }, [sliderToSend]);
 
-
+ 
     return (<>
         <div className="textMediumBold">Price per night</div>
 
