@@ -17,18 +17,27 @@ export default function Results(props) {
                 <div className="carousel-inner">
                     <div className="carousel-item active">
                         <img
-                            src={("https://picsum.photos/id/" + randomNumber() + "/250/200")}
-                            className="d-block" alt="..." />
+                            src={props.pic}
+                            className="d-block" alt="..."
+                            width="250px"
+                            height="200px" />
+                            
                     </div>
                     <div className="carousel-item">
                         <img
-                            src={("https://picsum.photos/id/" + randomNumber() + "/250/200")}
-                            className="d-block" alt="..." />
+                            src={props.pic}
+                            className="d-block" alt="..." 
+                            width="250px"
+                            height="200px"
+                            />
                     </div>
                     <div className="carousel-item">
                         <img
-                            src={("https://picsum.photos/id/" + randomNumber() + "/250/200")}
-                            className="d-block " alt="..." />
+                            src={props.pic}
+                            className="d-block " alt="..."
+                            width="250px"
+                            height="200px"
+                             />
                     </div>
                 </div>
                 <button className="carousel-control-prev" type="button" data-bs-target={"#" + props.sn} data-bs-slide="prev">
@@ -56,9 +65,9 @@ export default function Results(props) {
     return <>
 
         {props.data.map((i, index) => {
-
+        let point = Number(i.review_scores.review_scores_rating) / 20 ;
             return <div key={index} className="d-flex flex-row mt-2 w-100 bg-white" style={{ "minHeight": "200px" }}>
-                <div className="d-flex"><ImageSlider sn="amcik" /></div>
+                <div className="d-flex"><ImageSlider sn={"pic" + index} pic={i.images.picture_url} /></div>
                 <div className="d-flex flex-column mx-2 mt-2 mb-0 w-100">
                     <div className="textSmallBold">{i.name}</div>
                     <div className="textSmall">{i.summary}</div>
@@ -89,7 +98,7 @@ export default function Results(props) {
                         </table>
                         <div className="d-flex flex-column ms-auto text-end h-100 d-inline-block " >
                             <div className="textSmall mt-2">{i.review_scores.review_scores_rating}/100 ({i.number_of_reviews} reviews)  </div>
-                            <div className="text-end">      <Rating name="read-only" value={2} readOnly /></div>
+                            <div className="text-end">      <Rating name="read-only" value={point} readOnly /></div>
                             <div className="d-flex flex-column  mt-auto">
                                 <div className="textMediumBold fw-bold fs-4 text-end">$ {i.price.$numberDecimal}</div>
                                 <div className="mt-n1 textSmall">$ 1264 total</div>

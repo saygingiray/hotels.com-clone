@@ -89,7 +89,7 @@ app.get("/propertyList", async (req, res) => {
         await client.connect();
         const dataDBX = await collections.distinct("property_type")
         // const dataDBX2 = await collections.distinct("room_type")
-        console.log(dataDBX2)
+        // console.log(dataDBX2)
         await res.json(dataDBX);
     }
     catch (err) {
@@ -98,28 +98,44 @@ app.get("/propertyList", async (req, res) => {
 });
 
 app.get("/search", async (req, res) => {
+
+    /// query strings
+    let datasReceived = req.query;
+    console.log(datasReceived);
+    let queryX = {};
+
+    if (!datasReceived.priceRange == "") { let tempArr = datasReceived.priceRange.split(","); queryX.price = { $gte: Decimal128(String(tempArr[0])), $lte: Decimal128(String(tempArr[1])) } }
+    if (!datasReceived.guestRating == "") { let points = datasReceived.guestRating.slice(0, 2); let temp_str = "review_scores.review_scores_rating"; queryX[temp_str] = { $gte: Number(points) } }
+    if (!datasReceived.propertyClass == "") { let points = datasReceived.propertyClass.slice(0, 1); let temp_str = "host.host_listings_count"; queryX[temp_str] = { $gte: Number(points) } }
+    if (!datasReceived.propertySelected == "") { let tempArr3 = datasReceived.propertySelected.split(","); queryX.property_type = { "$in": tempArr3 } }
+    if (!datasReceived.bedTypes == "") { let tempArr3 = datasReceived.bedTypes.split(","); queryX.bed_type = { "$in": tempArr3 } }
+    if (!datasReceived.amenities == "") { let tempArr3 = datasReceived.amenities.split(","); queryX.amenities = { "$in": tempArr3 } }
+    if (!datasReceived.roomTypes == "") { let tempArr3 = datasReceived.roomTypes.split(","); queryX.room_type = { "$in": tempArr3 } }
+
+    console.log(queryX)
+
+    /// options strings
+
+    let optionsX = {};
+    optionsX.projection = { name: 1, summary:1, price: 1, 'review_scores.review_scores_rating': 1, "host.host_listings_count":1,   property_type: 1, bed_type:1, amenities:1, room_type:1 , 'images.picture_url': 1, 'address.street': 1, number_of_reviews:1 };
+    optionsX.limit = 20
+
+
     try {
+        await client.connect();
+        const dataDBX = await collections.find(queryX, optionsX).toArray();
+        const countNumber = await collections.countDocuments(queryX)
 
-        let datasReceived = req.query;
-        console.log(datasReceived);
-        let queryX = {};
+        const dataToSend = {
+            number: countNumber,
+            data: dataDBX,
 
-        if (!datasReceived.priceRange == "") {let tempArr = datasReceived.priceRange.split(","); queryX.price = { $gte: Decimal128(String(tempArr[0])), $lte: Decimal128(String(tempArr[1])) }}
-        if (!datasReceived.guestRating == "") {let points = datasReceived.guestRating.slice(0, 2) ; let temp_str = "review_scores.review_scores_rating"; queryX[temp_str] = { $gte: Number(points) }}
-        if (!datasReceived.propertyClass == "") {let points = datasReceived.propertyClass.slice(0, 1) ; let temp_str = "host.host_listings_count"; queryX[temp_str] = { $gte: Number(points) }}
-        if (!datasReceived.propertySelected == "") {let tempArr3 = datasReceived.propertySelected.split(","); if(typeof tempArr3 === "string"){queryX.property_type = tempArr3} else {queryX.property_type = {"$in" : tempArr3 } }}
-        if (!datasReceived.bedTypes == "") {let tempArr3 = datasReceived.bedTypes.split(","); if(typeof tempArr3 === "string"){queryX.bed_type = tempArr3} else {queryX.bed_type = {"$in" : tempArr3 } }}
-        if (!datasReceived.amenities == "") {let tempArr3 = datasReceived.amenities.split(","); if(typeof tempArr3 === "string"){queryX.amenities = tempArr3} else {queryX.amenities = {"$in" : tempArr3 } }}
-        if (!datasReceived.roomTypes == "") {let tempArr3 = datasReceived.roomTypes.split(","); if(typeof tempArr3 === "string"){queryX.room_type = tempArr3} else {queryX.room_type = {"$in" : tempArr3 } }}
-
-console.log(queryX)
-
+        }
+        await res.json(dataToSend);
     }
-    catch (err) {
-        console.log(err);
-    }
+    catch (err) {console.log(err); }
 });
- 
+
 
 
 
