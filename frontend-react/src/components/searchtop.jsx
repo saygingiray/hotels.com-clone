@@ -15,6 +15,9 @@ import RoomType from "./roomType";
 import FilterShown from "./filtersTopView";
 import SortBy from "./sortBy";
 import Results from "./results";
+import { PlaceHolder } from "./placeholder";
+import Pagination from '@mui/material/Pagination';
+
 
 export default function SearchTop() {
 
@@ -24,8 +27,8 @@ export default function SearchTop() {
     const [searchName, setsearchName] = React.useState({ name: "" })
     const [dateValue, setdateValue] = React.useState({ checkin: "", checkout: "" });
     const [roomDetails, setroomDetails] = React.useState({ adults: 1, children: { numberX: 0, "1": "0", "2": "0", "3": "0", "4": "0", "5": "0", "6": "0" } })
-    const [incomingData, setincomingData] = React.useState({ locationAdvice: [], cityAdvice: [], nameAdvice: [], propertyList: [] , numberOfSeearch: "", results: [] })
-    const [bools, setBools] = React.useState({ locationSearchFocus: false, travellersPopup: false, nameSearchFocus: false, locationPreload: false, namePreload: false })
+    const [incomingData, setincomingData] = React.useState({ locationAdvice: [], cityAdvice: [], nameAdvice: [], propertyList: [], numberOfSearch: "", results: [] })
+    const [bools, setBools] = React.useState({ locationSearchFocus: false, travellersPopup: false, nameSearchFocus: false, locationPreload: true, namePreload: true, fetching: false })
     const [filters, setFilters] = React.useState({
         priceRange: [30, 250],
         guestRating: [],
@@ -34,7 +37,11 @@ export default function SearchTop() {
         bedTypes: [],
         amenities: [],
         roomTypes: [],
-        sortBy: ""
+        addressByFetch : "",
+        sortBy: "",
+        page: 1,
+        limit: 20,
+
     })
 
 
@@ -71,18 +78,27 @@ export default function SearchTop() {
     }
 
 
-    const searchResults = async ()=> {
-       const queryString=  '/search?' + new URLSearchParams(filters).toString()
-    //    console.log(queryString)
-       const dataFromFetch = await searchResultsFromServer(queryString);
-       setincomingData((prev => ({ ...prev, numberOfSeearch : dataFromFetch.number, results: dataFromFetch.data  })));
-
-              
+    const searchResults = async () => {
+        setBools((prev => ({ ...prev, fetching: true })))
+        window.scrollTo(0, 0);
+        const queryString = '/search?' + new URLSearchParams(filters).toString()
+        //    console.log(queryString)
+        const dataFromFetch = await searchResultsFromServer(queryString);
+        setincomingData((prev => ({ ...prev, numberOfSearch: dataFromFetch.number, results: dataFromFetch.data })));
+        setBools((prev => ({ ...prev, fetching: false })))
     }
+
+
+    //pagination 
+    let pagsCount = "";
+    if (Math.ceil(incomingData.numberOfSearch / filters.limit) == 0) { pagsCount = 1 }
+    else { pagsCount = Math.ceil(incomingData.numberOfSearch / filters.limit); };
+    if (filters.page > pagsCount) { setFilters(prev => ({ ...prev, page: 1 })) };
+
 
     return (
         <>
-        <Header />
+            <Header />
             <div className="d-flex justify-content-center flex-wrap pt-3" style={{}}>
                 <div className="d-flex flex-row flex-wrap " style={{ "width": "1200px" }}>
 
@@ -90,13 +106,14 @@ export default function SearchTop() {
 
                     <LocationSearchComponent
                         onchangeX={(event) => { setsearchLocation((prev => ({ ...prev, address: event.target.value }))); setBools((prev => ({ ...prev, locationSearchFocus: true }))) }}
-                        onblurX={() => { setBools((prev => ({ ...prev, locationSearchFocus: false }))) }}
                         onfocuscaptureX={() => { setBools((prev => ({ ...prev, locationSearchFocus: true }))) }}
                         locationsearchfocusX={bools.locationSearchFocus}
                         addressX={searchLocation.address}
                         cityadviceX={incomingData.cityAdvice}
                         locationadviceX={incomingData.locationAdvice}
                         preloadX={bools.locationPreload}
+                        clickX={(i) =>{ { setFilters(prev => ({ ...prev, addressByFetch: (i) })) } ; setBools((prev => ({ ...prev, locationSearchFocus: false  })))}}
+                        onblurX={()=> {setBools((prev => ({ ...prev, locationSearchFocus: false  })))}}
                     />
 
                     {/* date-picker starting point */}
@@ -247,7 +264,7 @@ export default function SearchTop() {
                                     />
 
                                 </div>
-                                <div className="textSmall">{incomingData.numberOfSeearch} properties found.</div>
+                                <div className="textSmall">{incomingData.numberOfSearch} properties found. Showing results between {(filters.page-1)*filters.limit} to {(filters.page*filters.limit > incomingData.numberOfSearch) ? incomingData.numberOfSearch : filters.page*filters.limit}</div>
                             </div>
                             <div className="textSmall ms-auto">
                                 <SortBy
@@ -259,11 +276,15 @@ export default function SearchTop() {
 
                         </div>
 
+
+                        <PlaceHolder turn={bools.fetching} />
+
                         <Results
-                        data = {incomingData.results}
-
+                            data={incomingData.results}
                         />
-
+                        <div className="d-flex justify-content-center mt-4 mb-5">
+                            <Pagination className="justify-content-center" count={pagsCount} color="secondary" page={filters.page} onChange={(event, value) => { setFilters(prev => ({ ...prev, page: value })) }} />
+                        </div>
                     </div>
                 </div>
             </div>

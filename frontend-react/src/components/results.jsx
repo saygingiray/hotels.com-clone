@@ -2,11 +2,9 @@ import React from "react";
 import Rating from '@mui/material/Rating';
 
 
+
 export default function Results(props) {
 
-    function randomNumber(x) {
-        return Math.floor(Math.random() * 199)
-    }
 
 
     const ImageSlider = (props) => {
@@ -65,12 +63,24 @@ export default function Results(props) {
     return <>
 
         {props.data.map((i, index) => {
+        
         let point = Number(i.review_scores.review_scores_rating) / 20 ;
-            return <div key={index} className="d-flex flex-row mt-2 w-100 bg-white" style={{ "minHeight": "200px" }}>
+        let StringSummary = () => {
+           if (i.summary.length >200) { return (i.summary.slice(0,200) + "..." )}
+           else {return i.summary}
+              } 
+        let ReviewText = () => {
+           if (i.number_of_reviews == 0 ) {return <div>No reviews from guests.</div>}
+           else {return <> <span>{i.review_scores.review_scores_rating}/100 ({i.number_of_reviews} reviews)</span></>}
+            
+
+        }
+
+            return <div key={index} className="d-flex flex-row mt-3 w-100 bg-white" style={{ "minHeight": "200px" }}>
                 <div className="d-flex"><ImageSlider sn={"pic" + index} pic={i.images.picture_url} /></div>
                 <div className="d-flex flex-column mx-2 mt-2 mb-0 w-100">
                     <div className="textSmallBold">{i.name}</div>
-                    <div className="textSmall">{i.summary}</div>
+                    <div className="textSmall"><StringSummary/></div>
                     <div className="d-flex flex-row my-0">
                         <table className="table table-borderless mt-2 mb-0 table-hover" style={{ "width": "250px" }}>
                             <tbody>
@@ -97,7 +107,7 @@ export default function Results(props) {
                             </tbody>
                         </table>
                         <div className="d-flex flex-column ms-auto text-end h-100 d-inline-block " >
-                            <div className="textSmall mt-2">{i.review_scores.review_scores_rating}/100 ({i.number_of_reviews} reviews)  </div>
+                            <div className="textSmall mt-2"><ReviewText/>  </div>
                             <div className="text-end">      <Rating name="read-only" value={point} readOnly /></div>
                             <div className="d-flex flex-column  mt-auto">
                                 <div className="textMediumBold fw-bold fs-4 text-end">$ {i.price.$numberDecimal}</div>
