@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 const EntriesFromServer = (props) => {
 
     return (
-        <li onClickCapture={() => props.clickXX()} className="align-items-center m-0">
+        <li onMouseDown={() => props.clickXX()} className="align-items-center m-0">
             <i className="bi bi-geo-fill"></i>
             <span className="m-3">{props.name}</span><span className="badge bg-primary rounded-pill float-end bg-danger">{props.count}</span>
         </li>
@@ -22,7 +22,7 @@ export default function LocationSearchComponent(props) {
                 sx={{ input: { background: "white", width: "330px" } }}
                 autoComplete="off"
                 onChange={props.onchangeX}
-                // onBlur={props.onblurX}
+                onBlur={props.onblurX}
                 onFocusCapture={props.onfocuscaptureX}
                 variant="filled"
             />
