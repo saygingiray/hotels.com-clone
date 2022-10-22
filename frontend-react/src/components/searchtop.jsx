@@ -17,6 +17,7 @@ import SortBy from "./sortBy";
 import Results from "./results";
 import { PlaceHolder } from "./placeholder";
 import Pagination from '@mui/material/Pagination';
+import dayjs from "dayjs";
 
 
 export default function SearchTop() {
@@ -25,19 +26,21 @@ export default function SearchTop() {
 
     const [searchLocation, setsearchLocation] = React.useState({ address: "" });
     const [searchName, setsearchName] = React.useState({ name: "" })
-    const [dateValue, setdateValue] = React.useState({ checkin: "", checkout: "" });
+    const [dateValue, setdateValue] = React.useState({ checkin: dayjs(), checkout: dayjs().add(2, 'day') });
     const [roomDetails, setroomDetails] = React.useState({ adults: 1, children: { numberX: 0, "1": "0", "2": "0", "3": "0", "4": "0", "5": "0", "6": "0" } })
     const [incomingData, setincomingData] = React.useState({ locationAdvice: [], cityAdvice: [], nameAdvice: [], propertyList: [], numberOfSearch: "", results: [] })
     const [bools, setBools] = React.useState({ locationSearchFocus: false, travellersPopup: false, nameSearchFocus: false, locationPreload: true, namePreload: true, fetching: false })
     const [filters, setFilters] = React.useState({
         priceRange: [30, 250],
+        guestQTY : "1",
         guestRating: [],
         propertyClass: [],
         propertySelected: [],
         bedTypes: [],
         amenities: [],
         roomTypes: [],
-        addressByFetch : "",
+        addressCity: [],
+        addressSuburb: [],
         sortBy: "",
         page: 1,
         limit: 20,
@@ -45,10 +48,13 @@ export default function SearchTop() {
     })
 
 
-    React.useEffect(() => { const timer = setTimeout(() => { fetchLocation() }, 750); return () => clearTimeout(timer); }, [searchLocation]);
+    React.useEffect(() => { const timer = setTimeout(() => { fetchLocation() }, 500
+    ); return () => clearTimeout(timer); }, [searchLocation]);
     React.useEffect(() => { const timer = setTimeout(() => { fetchName() }, 750); return () => clearTimeout(timer); }, [searchName]);
     React.useEffect(() => { fetchPropertyTypes() }, []);
     React.useEffect(() => { searchResults() }, [filters]);
+    React.useEffect(() => { let guestCount = roomDetails.adults + roomDetails.children.numberX ; setFilters(prev => ({ ...prev, guestQTY: guestCount }))  }, [roomDetails]);
+
 
 
     const fetchLocation = async () => {
@@ -95,7 +101,6 @@ export default function SearchTop() {
     else { pagsCount = Math.ceil(incomingData.numberOfSearch / filters.limit); };
     if (filters.page > pagsCount) { setFilters(prev => ({ ...prev, page: 1 })) };
 
-
     return (
         <>
             <Header />
@@ -112,8 +117,9 @@ export default function SearchTop() {
                         cityadviceX={incomingData.cityAdvice}
                         locationadviceX={incomingData.locationAdvice}
                         preloadX={bools.locationPreload}
-                        clickX={(i) =>{ { setFilters(prev => ({ ...prev, addressByFetch: (i) })) } ; setBools((prev => ({ ...prev, locationSearchFocus: false  })))}}
-                        onblurX={()=> {setBools((prev => ({ ...prev, locationSearchFocus: false  })))}}
+                        clickXCity={(i) => { { setFilters(prev => ({ ...prev, addressCity: [(i)] })) }; setBools((prev => ({ ...prev, locationSearchFocus: false }))); setsearchLocation({ "address": i }) }}
+                        clickXSuburb={(i) => { { setFilters(prev => ({ ...prev, addressSuburb: [(i)] })) }; setBools((prev => ({ ...prev, locationSearchFocus: false }))); setsearchLocation({ "address": i }) }}
+                        onblurX={() => { setBools((prev => ({ ...prev, locationSearchFocus: false }))) }}
                     />
 
                     {/* date-picker starting point */}
@@ -263,8 +269,19 @@ export default function SearchTop() {
                                         delete={(i) => { let tempARR = filters.guestRating; tempARR.splice(i, 1); setFilters(prev => ({ ...prev, guestRating: tempARR })) }}
                                     />
 
+                                    <FilterShown
+                                        data={filters.addressCity}
+                                        delete={(i) => { let tempARR = filters.addressCity; tempARR.splice(i, 1); setFilters(prev => ({ ...prev, addressCity: tempARR })) }}
+                                    />
+
+                                    <FilterShown
+                                        data={filters.addressSuburb}
+                                        delete={(i) => { let tempARR = filters.addressSuburb; tempARR.splice(i, 1); setFilters(prev => ({ ...prev, addressSuburb: tempARR })) }}
+                                    />
+
+
                                 </div>
-                                <div className="textSmall">{incomingData.numberOfSearch} properties found. Showing results between {(filters.page-1)*filters.limit} to {(filters.page*filters.limit > incomingData.numberOfSearch) ? incomingData.numberOfSearch : filters.page*filters.limit}</div>
+                                <div className="textSmall">{incomingData.numberOfSearch} properties found. Showing results between {(filters.page - 1) * filters.limit} to {(filters.page * filters.limit > incomingData.numberOfSearch) ? incomingData.numberOfSearch : filters.page * filters.limit}</div>
                             </div>
                             <div className="textSmall ms-auto">
                                 <SortBy
@@ -281,6 +298,7 @@ export default function SearchTop() {
 
                         <Results
                             data={incomingData.results}
+                            datesCount={(Math.ceil((dateValue.checkout.$d - dateValue.checkin.$d) / (1000*60*60*24)))}
                         />
                         <div className="d-flex justify-content-center mt-4 mb-5">
                             <Pagination className="justify-content-center" count={pagsCount} color="secondary" page={filters.page} onChange={(event, value) => { setFilters(prev => ({ ...prev, page: value })) }} />

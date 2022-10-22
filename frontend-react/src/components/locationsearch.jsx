@@ -6,7 +6,7 @@ const EntriesFromServer = (props) => {
     return (
         <li onMouseDown={() => props.clickXX()} className="align-items-center m-0">
             <i className="bi bi-geo-fill"></i>
-            <span className="m-3">{props.name}</span><span className="badge bg-primary rounded-pill float-end bg-danger">{props.count}</span>
+            <span role="button" className="m-3">{props.name}</span><span className="badge bg-primary rounded-pill float-end bg-danger">{props.count}</span>
         </li>
     )
 }
@@ -25,6 +25,7 @@ export default function LocationSearchComponent(props) {
                 onBlur={props.onblurX}
                 onFocusCapture={props.onfocuscaptureX}
                 variant="filled"
+                value= {props.addressX}
             />
 
             {/* searching tab starting point */}
@@ -51,7 +52,7 @@ export default function LocationSearchComponent(props) {
                     </> : props.cityadviceX.length === 0 ? <div>{props.addressX} is not found in database.</div> :
                         <> <p className="boldSmallHeading">City</p>
                             <ul style={{ "listStyle": "none", "margin": "0", "padding": "0" }}>
-                                {props.cityadviceX.map((z, index) => { return <EntriesFromServer clickXX={() => { props.clickX(z[0]) }} key={index} name={z[0]} count={z[1]} /> })}
+                                {props.cityadviceX.map((z, index) => { return <EntriesFromServer clickXX={() => { props.clickXCity(z[0]) }} key={index} name={z[0]} count={z[1]} /> })}
                             </ul> </>
                     }
                     <hr style={{ "width": "330px" }}></hr>
@@ -67,7 +68,7 @@ export default function LocationSearchComponent(props) {
                         props.cityadviceX.length === 0 ? null :
                             <><p className="boldSmallHeading">District</p>
                                 <ul style={{ "listStyle": "none", "margin": "0", "padding": "0" }}>
-                                    {props.locationadviceX.map((y, index) => { return <EntriesFromServer clickXX={() => { props.clickX(y[0]) }} key={index} name={y[0]} count={y[1]} /> })}
+                                    {props.locationadviceX.map((y, index) => { return <EntriesFromServer clickXX={() => { props.clickXSuburb(y[0]) }} key={index} name={y[0]} count={y[1]} /> })}
                                 </ul></>}
                 </>}
                 </div>

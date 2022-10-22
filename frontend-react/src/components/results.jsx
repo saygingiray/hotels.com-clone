@@ -102,7 +102,7 @@ export default function Results(props) {
                                 </tr>
                                 <tr>
                                     <td><i className="bi bi-gear"></i></td>
-                                    <td className="textSmall fw-bold link-primary">Amenities</td>
+                                    <td className="textSmall fw-bold">Maximum Guest Allowed : {i.accommodates} </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -111,7 +111,7 @@ export default function Results(props) {
                             <div className="text-end">      <Rating name="read-only" value={point} readOnly /></div>
                             <div className="d-flex flex-column  mt-auto">
                                 <div className="textMediumBold fw-bold fs-4 text-end">$ {i.price.$numberDecimal}</div>
-                                <div className="mt-n1 textSmall">$ 1264 total</div>
+                                <div className="mt-n1 textSmall">$ {i.price.$numberDecimal*props.datesCount} total</div>
                             </div>
                         </div>
                     </div>

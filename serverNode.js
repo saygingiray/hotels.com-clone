@@ -106,19 +106,21 @@ app.get("/search", async (req, res) => {
     let optionsX = {};
 
     if (!datasReceived.priceRange == "") { let tempArr = datasReceived.priceRange.split(","); queryX.price = { $gte: Decimal128(String(tempArr[0])), $lte: Decimal128(String(tempArr[1])) } }
+    if (!datasReceived.guestQTY == "") { queryX.accommodates = { $gte: Number(datasReceived.guestQTY) }}
     if (!datasReceived.guestRating == "") { let points = datasReceived.guestRating.slice(0, 2); let temp_str = "review_scores.review_scores_rating"; queryX[temp_str] = { $gte: Number(points) } }
-    if (!datasReceived.propertyClass == "") { let points = datasReceived.propertyClass.slice(0, 1); let temp_str = "host.host_listings_count"; queryX[temp_str] = { $gte: Number(points) } }
+    if (!datasReceived.propertyClass == "") { let points = datasReceived.propertyClass.slice(0, 1); let temp_str = "review_scores.review_scores_rating"; queryX[temp_str] = { $gte: Number(points)*20 } }
     if (!datasReceived.propertySelected == "") { let tempArr3 = datasReceived.propertySelected.split(","); queryX.property_type = { "$in": tempArr3 } }
     if (!datasReceived.bedTypes == "") { let tempArr3 = datasReceived.bedTypes.split(","); queryX.bed_type = { "$in": tempArr3 } }
     if (!datasReceived.amenities == "") { let tempArr3 = datasReceived.amenities.split(","); queryX.amenities = { "$in": tempArr3 } }
     if (!datasReceived.roomTypes == "") { let tempArr3 = datasReceived.roomTypes.split(","); queryX.room_type = { "$in": tempArr3 } }
-    if (!datasReceived.addressByFetch == "") { let temp_str = "address.street"; queryX[temp_str] = { "$regex": datasReceived.addressByFetch, $options: 'i' }}
+    if (!datasReceived.addressCity == "") { let temp_str = "address.market"; queryX[temp_str] = { "$regex": datasReceived.addressCity, $options: 'i' }}
+    if (!datasReceived.addressSuburb == "") { let temp_str = "address.suburb"; queryX[temp_str] = { "$regex": datasReceived.addressSuburb, $options: 'i' }}
     if (!datasReceived.sortBy == "") { let tempArr3 = datasReceived.sortBy.split(","); optionsX.sort = { [tempArr3[0]]: tempArr3[1] } }
     if (!datasReceived.limit == "") {optionsX.limit = Number(datasReceived.limit)}
     if (!datasReceived.page == "") { optionsX.skip = ((datasReceived.page - 1) * optionsX.limit) }
 
 
-    optionsX.projection = { name: 1, summary: 1, price: 1, 'review_scores.review_scores_rating': 1, "host.host_listings_count": 1, property_type: 1, bed_type: 1, amenities: 1, room_type: 1, 'images.picture_url': 1, 'address.street': 1, number_of_reviews: 1 };
+    optionsX.projection = { name: 1, summary: 1, price: 1, 'review_scores.review_scores_rating': 1, "host.host_listings_count": 1, property_type: 1, bed_type: 1, amenities: 1, room_type: 1, 'images.picture_url': 1, 'address.street': 1, number_of_reviews: 1, accommodates :1 };
 
     console.log(queryX)
 
