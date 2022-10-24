@@ -21,7 +21,7 @@ export default function NameSearch(props) {
             <div className="d-flex" style={{ "width": "250px" }}>
                 <div><p className="textMediumBold mb-1 ">Search Property by Name </p>
                     <TextField
-                        sx={{ input: { background: "white", width: "220px" } }}
+                        sx={{ input: { background: "white", width: "225px" } }}
                         label="Property Name" variant="filled"
                         autoComplete="off"
                         placeholder="e.g. Hilton"

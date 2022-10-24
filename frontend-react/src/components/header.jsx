@@ -13,9 +13,9 @@ export default function Header() {
 
     return (
 
-        <div className="d-flex p-3 justify-content-center" style={{ "height": "70px", "backgroundColor": "white" }}>
+        <div className="d-flex justify-content-center" style={{ "height": "70px", "backgroundColor": "white" }}>
 
-            <div className="d-flex align-items-center" style={{ "width": "1200px" }}>
+            <div className="d-flex  p-1 align-items-center" style={{ "width": "1200px" }}>
                 <img src="https://www.hotels.com/_dms/header/logo.svg?locale=en_GB&siteid=310000033&2" style={{ "width": "164px", "height": "32px" }} ></img>
                 <div className="m-5 pt-1">
                     <a href="#" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">

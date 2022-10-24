@@ -13,7 +13,7 @@ export default function TravellersComponent(props){
     const ChildrenAges = (props) => {
 
         return (
-            <div className="d-flex mt-2">
+            
                 <FormControl sx={{ minWidth: 165 }} >
                     <InputLabel id="Children Age">Age of Children {Number(props.number)}</InputLabel>
                     <Select
@@ -47,7 +47,7 @@ export default function TravellersComponent(props){
                         <MenuItem value={18}>18</MenuItem>
                     </Select>
                 </FormControl>
-            </div>
+          
         )
     }
 
@@ -68,10 +68,10 @@ export default function TravellersComponent(props){
 
 return (<>
 
-<div className="ms-2" >
+<div  >
                     <TextField
                         label="Travellers" variant="filled"
-                        sx={{ input: { background: "white", width: "255px" } }}
+                        sx={{ input: { background: "white", width: (props.pageWidth > 650) ? "230px" : props.pageWidth*0.345 } }}
                         onClickCapture={props.onclickcaptureX}
                         value={props.valuefortextfield}
 
@@ -85,8 +85,8 @@ return (<>
                     >
                         <div className="d-flex p-4 flex-column" style={{
                             "position": 'absolute',
-                            "top": '10%',
-                            "left": '35%',
+                            "top": (props.pageWidth > 650) ? "10%" : "5%",
+                            "left": (props.pageWidth > 650) ? "35%" : "10%",
                             "minWidth": "400px",
                             "maxWidth": "400px",
                             "minHeight": "600px",

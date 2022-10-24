@@ -10,7 +10,9 @@ import dayjs from "dayjs";
 
 export default function DatePickerInAndOut(props) {
     return (<>
-        <div className="mx-2 bg-white" style={{ "width": "150px", "maxHeight": "56px" }}>
+        <div className={(props.pageWidth > 650) ? "datePickerLARGE ms-2 p-0 col bg-white " : "p-0 me-1 col bg-white"}
+            style={(props.pageWidth < 650) ? { "maxWidth": props.pageWidth * 0.345+24 } : null}
+        >
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <MobileDatePicker
                     label="Check-in Date"
@@ -25,7 +27,9 @@ export default function DatePickerInAndOut(props) {
                     />} />
             </LocalizationProvider>
         </div>
-        <div className="mx-2 bg-white" style={{ "width": "150px", "maxHeight": "56px" }}>
+        <div className={(props.pageWidth > 650) ? "datePickerLARGE ms-2 p-0 col bg-white " : "p-0 col bg-white"}
+            style={(props.pageWidth < 650) ? { "maxWidth": props.pageWidth * 0.345+24 } : null}
+        >
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <MobileDatePicker
                     label="Check-out Date"

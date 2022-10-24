@@ -11,15 +11,17 @@ const EntriesFromServer = (props) => {
     )
 }
 
+
+
 export default function LocationSearchComponent(props) {
 
 
 
     return (<>
-        <div  className="me-2 bg-white">
+        
 
             <TextField id="outlined-basic" label="Going to"
-                sx={{ input: { background: "white", width: "330px" } }}
+                sx={{ input: { background: "white", width: (props.pageWidth > 650) ? "330px" : props.pageWidth-50  } }}
                 autoComplete="off"
                 onChange={props.onchangeX}
                 onBlur={props.onblurX}
@@ -31,7 +33,7 @@ export default function LocationSearchComponent(props) {
             {/* searching tab starting point */}
 
             <div  id="tries" onBlur={props.onblurX}  tabIndex="0    " className={(!props.locationsearchfocusX) ? "d-none" : "d-flex p-2 animate__animated animate__fadeIn"} style={{
-                "width": "354px", "backgroundColor": "white", "border": "1px solid  rgba(221, 221, 221, 0.744)",
+                "width": (props.pageWidth > 650) ? "354px" : props.pageWidth-25, "backgroundColor": "white", "border": "1px solid  rgba(221, 221, 221, 0.744)",
                 "borderRadius": "5px",
                 "minHeight": "200px",
                 // "position": "-webkit-sticky", 
@@ -55,7 +57,7 @@ export default function LocationSearchComponent(props) {
                                 {props.cityadviceX.map((z, index) => { return <EntriesFromServer clickXX={() => { props.clickXCity(z[0]) }} key={index} name={z[0]} count={z[1]} /> })}
                             </ul> </>
                     }
-                    <hr style={{ "width": "330px" }}></hr>
+                    <hr style={{ "width": (props.pageWidth > 650) ? "330px" : props.pageWidth-50 }}></hr>
 
 
                     {(props.preloadX) ? <>
@@ -73,6 +75,6 @@ export default function LocationSearchComponent(props) {
                 </>}
                 </div>
             </div>
-        </div>
+        
         </>   )
 }
