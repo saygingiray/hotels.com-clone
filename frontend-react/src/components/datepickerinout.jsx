@@ -10,7 +10,7 @@ import dayjs from "dayjs";
 
 export default function DatePickerInAndOut(props) {
     return (<>
-        <div className={(props.pageWidth > 650) ? "datePickerLARGE ms-2 p-0 col bg-white " : "p-0 me-1 col bg-white"}
+        <div className={(props.pageWidth > 650) ? "datePickerLARGE me-1 p-0 bg-white " : "p-0 me-1 col bg-white"}
             style={(props.pageWidth < 650) ? { "maxWidth": "200px" } : null}
         >
             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -27,7 +27,7 @@ export default function DatePickerInAndOut(props) {
                     />} />
             </LocalizationProvider>
         </div>
-        <div className={(props.pageWidth > 650) ? "datePickerLARGE ms-2 p-0 col bg-white " : "p-0 col bg-white"}
+        <div className={(props.pageWidth > 650) ? "datePickerLARGE  p-0 bg-white " : "p-0 col bg-white"}
             style={(props.pageWidth < 650) ? { "maxWidth": "200px" } : null}
         >
             <LocalizationProvider dateAdapter={AdapterDayjs}>
