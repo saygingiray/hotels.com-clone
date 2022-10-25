@@ -8,9 +8,23 @@ const { query } = require('express');
 const client = new MongoClient(process.env.URI);
 const database = client.db("sample_airbnb"); //database name defined in mongo atlas sample
 const collections = database.collection("listingsAndReviews"); // collection name defined in mongo atlas sample
+const path = require("path");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+//  DEPLOYMENT TO HEROKU
+__dirname = path.resolve();
+
+
+app.use(express.static(path.join(__dirname, 'frontend-react/build')));
+
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
+
+
 
 
 
@@ -108,7 +122,7 @@ app.get("/search", async (req, res) => {
     if (!datasReceived.priceRange == "") { let tempArr = datasReceived.priceRange.split(","); queryX.price = { $gte: Decimal128(String(tempArr[0])), $lte: Decimal128(String(tempArr[1])) } }
     if (!datasReceived.guestQTY == "") { queryX.accommodates = { $gte: Number(datasReceived.guestQTY) }}
     if (!datasReceived.guestRating == "") { let points = datasReceived.guestRating.slice(0, 2); let temp_str = "review_scores.review_scores_rating"; queryX[temp_str] = { $gte: Number(points) } }
-    if (!datasReceived.propertyClass == "") { let points = datasReceived.propertyClass.slice(0, 1); let temp_str = "review_scores.review_scores_rating"; queryX[temp_str] = { $gte: Number(points)*20 } }
+    if (!datasReceived.propertyClass == "") { let points = datasReceived.propertyClass.slice(0, 1); let temp_str = "review_scores.review_scores_rating"; queryX[temp_str] = { $gte: Number(points)*20  } }
     if (!datasReceived.propertySelected == "") { let tempArr3 = datasReceived.propertySelected.split(","); queryX.property_type = { "$in": tempArr3 } }
     if (!datasReceived.bedTypes == "") { let tempArr3 = datasReceived.bedTypes.split(","); queryX.bed_type = { "$in": tempArr3 } }
     if (!datasReceived.amenities == "") { let tempArr3 = datasReceived.amenities.split(","); queryX.amenities = { "$in": tempArr3 } }

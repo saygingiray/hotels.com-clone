@@ -298,7 +298,7 @@ export default function SearchTop() {
                     {(incomingData.pageWidth < 650) ?
 
                         <div className="d-flex justify-content-center">
-                            <button onClick={() => { setBools((prev) => ({ ...prev, seeMoreFilter: (!bools.seeMoreFilter) })) }} type="button" className="btn btn-outline-danger" style={{ "width": incomingData.pageWidth - 25 }}><i class="bi bi-filter"></i> Filters</button>
+                            <button onClick={() => { setBools((prev) => ({ ...prev, seeMoreFilter: (!bools.seeMoreFilter) })) }} type="button" className="btn btn-outline-danger" style={{ "width": incomingData.pageWidth - 25 }}><i className="bi bi-filter"></i> Filters</button>
                         </div> : null}
 
                     <div className={(incomingData.pageWidth > 650) ? "d-flex flex-column ps-1" : (bools.seeMoreFilter) ? "seeMoreFilter d-flex bg-white p-3 flex-column" : "seeLessFilter"}>

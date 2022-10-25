@@ -119,20 +119,20 @@ export function ResultsMobile(props) {
 
     const ImageSlider = (props) => {
         return (<>
-            <div id={props.sn} className="carousel slide" data-bs-interval="false" data-bs-touch="false" style={{ "width": props.pageWidth - 30 }}>
+            <div id={props.sn} className="carousel slide" data-bs-interval="false" data-bs-touch="false" style={{ "width": props.pageWidth - 25 }}>
                 <div className="carousel-inner">
                     <div className="carousel-item active">
                         <img
                             src={props.pic}
                             className="d-flex" alt="..."
-                            width={props.pageWidth - 30}
+                            width={props.pageWidth - 25}
                             height={props.pageWidth / 20 * 9} />
                     </div>
                     <div className="carousel-item">
                         <img
                             src={props.pic}
                             className="d-block" alt="..."
-                            width={props.pageWidth - 30}
+                            width={props.pageWidth - 25}
                             height={props.pageWidth / 20 * 9}
                         />
                     </div>
@@ -140,10 +140,10 @@ export function ResultsMobile(props) {
                         <img
                             src={props.pic}
                             className="d-block " alt="..."
-                            width={props.pageWidth - 30}
+                            width={props.pageWidth - 25}
                             height={props.pageWidth / 20 * 9}
                         />
-                    </div>
+                    </div> 
                 </div>
                 <button className="carousel-control-prev" type="button" data-bs-target={"#" + props.sn} data-bs-slide="prev">
                     <span className="carousel-control-prev-icon" aria-hidden="true"></span>
