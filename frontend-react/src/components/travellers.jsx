@@ -71,7 +71,7 @@ return (<>
 <div  >
                     <TextField
                         label="Travellers" variant="filled"
-                        sx={{ input: { background: "white", width: (props.pageWidth > 650) ? "230px" : props.pageWidth*0.345 } }}
+                        sx={{ input: { background: "white", width: (props.pageWidth > 650) ? "230px" : "176px" } }}
                         onClickCapture={props.onclickcaptureX}
                         value={props.valuefortextfield}
 
