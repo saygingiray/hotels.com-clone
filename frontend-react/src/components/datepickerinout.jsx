@@ -11,7 +11,7 @@ import dayjs from "dayjs";
 export default function DatePickerInAndOut(props) {
     return (<>
         <div className={(props.pageWidth > 650) ? "datePickerLARGE ms-2 p-0 col bg-white " : "p-0 me-1 col bg-white"}
-            style={(props.pageWidth < 650) ? { "maxWidth": props.pageWidth * 0.345+24 } : null}
+            style={(props.pageWidth < 650) ? { "maxWidth": "200px" } : null}
         >
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <MobileDatePicker
@@ -28,7 +28,7 @@ export default function DatePickerInAndOut(props) {
             </LocalizationProvider>
         </div>
         <div className={(props.pageWidth > 650) ? "datePickerLARGE ms-2 p-0 col bg-white " : "p-0 col bg-white"}
-            style={(props.pageWidth < 650) ? { "maxWidth": props.pageWidth * 0.345+24 } : null}
+            style={(props.pageWidth < 650) ? { "maxWidth": "200px" } : null}
         >
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <MobileDatePicker
@@ -39,7 +39,7 @@ export default function DatePickerInAndOut(props) {
                     onChange={props.onchangeY}
                     minDate={props.valueX}
                     renderInput={(params2) => <TextField {...params2}
-                        sx={{ input: { background: "white" } }}
+                        sx={{ input: { background: "white"} }}
                         variant="filled"
                     />} />
             </LocalizationProvider>

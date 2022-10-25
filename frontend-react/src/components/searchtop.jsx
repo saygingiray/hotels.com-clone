@@ -220,7 +220,7 @@ export default function SearchTop() {
             <PageWidth
                 sendData={(i) => { setincomingData(prev => ({ ...prev, pageWidth: (i) })) }}
             />
-            <div className="container justify-content-center" style={{ "maxWidth": "1200px" }}>
+            <div className="container justify-content-center" style={(incomingData.pageWidth<650) ? { "maxWidth": incomingData.pageWidth , "padding" : "10px" } : { "maxWidth": "1200px" } }>
 
                 <div className="row row-cols-auto p-1 pt-3">
                     {/* Locationsearch starts here */}
@@ -279,7 +279,7 @@ export default function SearchTop() {
 
                     {/* Submit Button starting point */}
                     <div className={(incomingData.pageWidth > 650) ? "col p-0 ms-auto" : "col text-right mt-1 ms-auto pe-0"}>
-                        <button onClick={() => setFilters(prev => ({ ...prev, bedTypes: filters.bedTypes }))} type="button" className="btn btn-danger searchButton" style={(incomingData.pageWidth < 650) ? { "width": incomingData.pageWidth * 0.345 + 25, "borderTopRightRadius": "0px" } : null} >Search</button>
+                        <button onClick={() => setFilters(prev => ({ ...prev, bedTypes: filters.bedTypes }))} type="button" className="btn btn-danger searchButton" style={(incomingData.pageWidth < 650) ? { "width": "180px", "borderTopRightRadius": "0px" , "marginRight" : "0", "paddingRight" : "0" } : null} >Search</button>
                     </div>
                 </div>
 
