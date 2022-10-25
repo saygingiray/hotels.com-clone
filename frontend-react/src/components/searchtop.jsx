@@ -220,11 +220,11 @@ export default function SearchTop() {
             <PageWidth
                 sendData={(i) => { setincomingData(prev => ({ ...prev, pageWidth: (i) })) }}
             />
-            <div className="container justify-content-center" style={(incomingData.pageWidth<650) ? { "maxWidth": incomingData.pageWidth , "padding" : "10px" } : { "maxWidth": "1200px" } }>
-
-                <div className="row row-cols-auto p-1 pt-3">
+            <div className="d-flex justify-content-center w-100" >
+            {/* style={(incomingData.pageWidth<650) ? { "maxWidth": "300" , "padding" : "10px" } : { "maxWidth": "1200px" } } */}
+                <div className={(incomingData.pageWidth > 650) ? "d-flex flex-row p-1 pt-3" : "d-flex flex-column justify-content-center p-1 pt-3"} style={(incomingData.pageWidth > 650) ? {"width" : "1200px"} : {"width" : "100%"}}>
                     {/* Locationsearch starts here */}
-                    <div className="col p-0 col bg-white" style={{ "minWidth": "330px" }}>
+                    <div className={(incomingData.pageWidth > 650) ? " p-0 me-3 bg-white" : " m-0 bg-white"} style={(incomingData.pageWidth > 650) ? { "minWidth": "330px" } : {"minWidth" : "370px"}}>
                         <LocationSearchComponent
                             onchangeX={(event) => { setsearchLocation((prev => ({ ...prev, address: event.target.value }))); setBools((prev => ({ ...prev, locationSearchFocus: true }))) }}
                             onfocuscaptureX={() => { setBools((prev => ({ ...prev, locationSearchFocus: true }))) }}
@@ -240,7 +240,7 @@ export default function SearchTop() {
                         />
                     </div>
                     {/* date-picker starting point */}
-                    <div className="col  ">
+                    <div className="d-flex me-3 ">
                         <div className={(incomingData.pageWidth > 650) ? "row" : "row justify-content-between mt-1"} style={(incomingData.pageWidth < 650) ? { "width": incomingData.pageWidth } : null}>
                             <DatePickerInAndOut
                                 valueX={dateValue.checkin}
@@ -253,7 +253,7 @@ export default function SearchTop() {
                     </div>
                     {/* Travellers starting point */}
 
-                    <div className={(incomingData.pageWidth > 650) ? "col" : "col p-0 mt-1"}>
+                    <div className={(incomingData.pageWidth > 650) ? "d-flex" : "d-flex p-0 mt-1"}>
                         <TravellersComponent
                             onclickcaptureX={() => { setBools((prev) => ({ ...prev, travellersPopup: true })) }}
                             valuefortextfield={roomDetails.adults + " adults " + roomDetails.children.numberX + " children"}
@@ -278,7 +278,7 @@ export default function SearchTop() {
                     </div>
 
                     {/* Submit Button starting point */}
-                    <div className={(incomingData.pageWidth > 650) ? "col p-0 ms-auto" : "col text-right mt-1 ms-auto pe-0"}>
+                    <div className={(incomingData.pageWidth > 650) ? "d-flex p-0 ms-auto" : "d-flex text-right mt-1 ms-auto pe-0"}>
                         <button onClick={() => setFilters(prev => ({ ...prev, bedTypes: filters.bedTypes }))} type="button" className="btn btn-danger searchButton" style={(incomingData.pageWidth < 650) ? { "width": "180px", "borderTopRightRadius": "0px" , "marginRight" : "0", "paddingRight" : "0" } : null} >Search</button>
                     </div>
                 </div>
@@ -345,7 +345,7 @@ export default function SearchTop() {
                             </>
                         }
 
-                        <PlaceHolder turn={bools.fetching} />
+                        {/* <PlaceHolder turn={bools.fetching} /> */}
 
                         {/* Results */}
                         {(incomingData.pageWidth > 650) ?
