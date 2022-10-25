@@ -21,7 +21,7 @@ export default function LocationSearchComponent(props) {
         
 
             <TextField id="outlined-basic" label="Going to"
-                sx={{ input: { background: "white", width: (props.pageWidth > 650) ? "330px" : props.pageWidth-50  } }}
+                sx={{ input: { background: "white", width: (props.pageWidth > 650) ? "330px" : props.pageWidth  } }}
                 autoComplete="off"
                 onChange={props.onchangeX}
                 onBlur={props.onblurX}
@@ -57,7 +57,7 @@ export default function LocationSearchComponent(props) {
                                 {props.cityadviceX.map((z, index) => { return <EntriesFromServer clickXX={() => { props.clickXCity(z[0]) }} key={index} name={z[0]} count={z[1]} /> })}
                             </ul> </>
                     }
-                    <hr style={{ "width": (props.pageWidth > 650) ? "330px" : props.pageWidth-50 }}></hr>
+                    <hr style={{ "width": (props.pageWidth > 650) ? "330px" : props.pageWidth }}></hr>
 
 
                     {(props.preloadX) ? <>
