@@ -241,7 +241,7 @@ export default function SearchTop() {
                     </div>
                     {/* date-picker starting point */}
                     <div className="col  ">
-                        <div className={(incomingData.pageWidth > 650) ? "row" : "row justify-content-between mt-1"} style={(incomingData.pageWidth < 650) ? { "width": incomingData.pageWidth - 26 } : null}>
+                        <div className={(incomingData.pageWidth > 650) ? "row" : "row justify-content-between mt-1"} style={(incomingData.pageWidth < 650) ? { "width": incomingData.pageWidth } : null}>
                             <DatePickerInAndOut
                                 valueX={dateValue.checkin}
                                 onchangeX={(newValue) => { (dateValue.checkout == "") ? setdateValue((prev) => ({ checkout: newValue, checkin: newValue })) : setdateValue((prev) => ({ ...prev, checkin: newValue })) }}
@@ -301,7 +301,7 @@ export default function SearchTop() {
                             <button onClick={() => { setBools((prev) => ({ ...prev, seeMoreFilter: (!bools.seeMoreFilter) })) }} type="button" className="btn btn-outline-danger" style={{ "width": incomingData.pageWidth - 25 }}><i className="bi bi-filter"></i> Filters</button>
                         </div> : null}
 
-                    <div className={(incomingData.pageWidth > 650) ? "d-flex flex-column ps-1" : (bools.seeMoreFilter) ? "seeMoreFilter d-flex bg-white p-3 flex-column" : "seeLessFilter"}>
+                    <div className={(incomingData.pageWidth > 650) ? "d-flex flex-column ps-1" : (bools.seeMoreFilter) ? "seeMoreFilter d-flex bg-white p-3 mt-2 flex-column" : "seeLessFilter"}>
                         {LeftSideFilters()}
                     </div>
 

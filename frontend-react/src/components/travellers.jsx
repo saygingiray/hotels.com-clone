@@ -87,6 +87,7 @@ return (<>
                             "position": 'absolute',
                             "top": (props.pageWidth > 650) ? "10%" : "5%",
                             "left": (props.pageWidth > 650) ? "35%" : "10%",
+                            "right": (props.pageWidth < 650) ? "10%" : null,
                             "minWidth": "400px",
                             "maxWidth": "400px",
                             "minHeight": "600px",
