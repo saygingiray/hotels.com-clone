@@ -278,7 +278,7 @@ export default function SearchTop() {
                     </div>
 
                     {/* Submit Button starting point */}
-                    <div className={(incomingData.pageWidth > 650) ? "d-flex p-0 ms-auto" : "d-flex text-right mt-1 ms-auto pe-0"}>
+                    <div className="d-none">
                         <button onClick={() => setFilters(prev => ({ ...prev, bedTypes: filters.bedTypes }))} type="button" className="btn btn-danger searchButton" style={(incomingData.pageWidth < 650) ? { "width": "180px", "borderTopRightRadius": "0px" , "marginRight" : "0", "paddingRight" : "0" } : null} >Search</button>
                     </div>
                 </div>
