@@ -12,7 +12,9 @@
   "main": "serverNode.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon serverNode.js"
+    "start": "nodemon serverNode.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend-react && npm run build --prefix frontend-react"
+
   },
   "keywords": [],
   "author": "",
