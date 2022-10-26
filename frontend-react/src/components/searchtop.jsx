@@ -220,11 +220,11 @@ export default function SearchTop() {
             <PageWidth
                 sendData={(i) => { setincomingData(prev => ({ ...prev, pageWidth: (i) })) }}
             />
-            <div className="d-flex justify-content-center w-100" >
+            <div className="d-flex px-5 justify-content-center w-100" >
             {/* style={(incomingData.pageWidth<650) ? { "maxWidth": "300" , "padding" : "10px" } : { "maxWidth": "1200px" } } */}
-                <div className={(incomingData.pageWidth > 650) ? "d-flex flex-row p-1 pt-3" : "d-flex flex-column justify-content-center p-1 pt-3"} style={(incomingData.pageWidth > 650) ? {"width" : "1200px"} : {"width" : "100%"}}>
+                <div className={(incomingData.pageWidth > 650) ? "d-flex flex-row p-1 pt-3" : "d-flex flex-column justify-content-center mt-2"} style={(incomingData.pageWidth > 650) ? {"width" : "1200px"} : null}>
                     {/* Locationsearch starts here */}
-                    <div className={(incomingData.pageWidth > 650) ? " p-0 me-3 bg-white" : " m-0 bg-white"} style={(incomingData.pageWidth > 650) ? { "minWidth": "330px" } : {"minWidth" : "370px"}}>
+                    <div className={(incomingData.pageWidth > 650) ? " p-0 me-3 bg-white" : " ms-2 me-2 bg-white"} style={(incomingData.pageWidth > 650) ? { "minWidth": "330px" } : null }>
                         <LocationSearchComponent
                             onchangeX={(event) => { setsearchLocation((prev => ({ ...prev, address: event.target.value }))); setBools((prev => ({ ...prev, locationSearchFocus: true }))) }}
                             onfocuscaptureX={() => { setBools((prev => ({ ...prev, locationSearchFocus: true }))) }}
@@ -278,7 +278,7 @@ export default function SearchTop() {
                     </div>
 
                     {/* Submit Button starting point */}
-                    <div className="d-none">
+                    <div className={(incomingData.pageWidth > 650) ? "d-flex p-0 ms-auto" : "d-flex text-right mt-1 ms-auto pe-0"}>
                         <button onClick={() => setFilters(prev => ({ ...prev, bedTypes: filters.bedTypes }))} type="button" className="btn btn-danger searchButton" style={(incomingData.pageWidth < 650) ? { "width": "180px", "borderTopRightRadius": "0px" , "marginRight" : "0", "paddingRight" : "0" } : null} >Search</button>
                     </div>
                 </div>
@@ -289,7 +289,7 @@ export default function SearchTop() {
             {/* BOTTOM PART STARTS HERE **********  */}
 
             <div className="d-flex  justify-content-center mt-3" >
-                <div className={(incomingData.pageWidth < 650) ? "d-flex flex-column" : "d-flex flex-row"} style={{ "maxWidth": "1200px" }} >
+                <div className={(incomingData.pageWidth < 650) ? "d-flex flex-column" : "d-flex flex-row"} style={(incomingData.pageWidth > 650) ? { "width": "1200px" } : null} >
 
                     {/* Left (FILTERS) side starts here */}
                     {/* Responsive for wide screens and mobiles */}
