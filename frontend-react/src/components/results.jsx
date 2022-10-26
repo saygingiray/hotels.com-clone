@@ -119,7 +119,7 @@ export function ResultsMobile(props) {
 
     const ImageSlider = (props) => {
         return (<>
-            <div id={props.sn} className="carousel slide" data-bs-interval="false" data-bs-touch="false" style={{ "width": props.pageWidth }}>
+            <div id={props.sn} className="carousel slide" data-bs-interval="false" data-bs-touch="false" style={{ "width": "100%" }}>
                 <div className="carousel-inner">
                     <div className="carousel-item active">
                         <img
@@ -174,7 +174,7 @@ export function ResultsMobile(props) {
 
             }
 
-            return <div key={index} className="d-flex flex-column mt-4 w-100 bg-white" >
+            return <div key={index} className="d-flex flex-column mt-4 bg-white" style={{"width" : "90%"}} >
                 <div className=""><ImageSlider sn={"pic" + index} pic={i.images.picture_url} pageWidth={props.pageWidth} /></div>
                 <div className="p-2">
                     <div className="textSmallBold">{i.name}</div>
@@ -215,44 +215,6 @@ export function ResultsMobile(props) {
                     </div>
                 </div>
             </div>
-            {/* <div className="d-flex flex-column mx-2 mt-2 mb-0 w-100">
-
-                    <div className="d-flex flex-row my-0"> */}
-            {/* <table className="table table-borderless mt-2 mb-0 table-hover" style={{ "width": "250px" }}>
-                            <tbody>
-                                <tr>
-                                    <td><i className="bi bi-geo-fill"></i></td>
-                                    <td className="textSmall fw-bold">{i.address.street}</td>
-                                </tr>
-                                <tr>
-                                    <td><i className="bi bi-building" style={{ "fontSize": "15px" }}></i></td>
-                                    <td className="textSmall fw-bold">{i.property_type}</td>
-                                </tr>
-                                <tr>
-                                    <td><i className="bi bi-house-heart"></i></td>
-                                    <td className="textSmall fw-bold">{i.room_type}</td>
-                                </tr>
-                                <tr>
-                                    <td><i className="bi bi-aspect-ratio"></i></td>
-                                    <td className="textSmall fw-bold">{i.bed_type}</td>
-                                </tr>
-                                <tr>
-                                    <td><i className="bi bi-gear"></i></td>
-                                    <td className="textSmall fw-bold">Maximum Guest Allowed : {i.accommodates} </td>
-                                </tr>
-                            </tbody>
-                        </table> */}
-            {/* <div className="d-flex flex-column ms-auto text-end h-100 d-inline-block " >
-                            <div className="textSmall mt-2"><ReviewText/>  </div>
-                            <div className="text-end">      <Rating name="read-only" value={point} readOnly /></div>
-                            <div className="d-flex flex-column  mt-auto">
-                                <div className="textMediumBold fw-bold fs-4 text-end">$ {i.price.$numberDecimal}</div>
-                                <div className="mt-n1 textSmall">$ {i.price.$numberDecimal*props.datesCount} total</div>
-                            </div>
-                        </div> */}
-            {/* </div>
-                </div> */}
-            {/* </div> */}
 
 })}
 
