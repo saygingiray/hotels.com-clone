@@ -1,7 +1,7 @@
 # Hotels.com - Search Page - Clone APP 
 In this repo, Hotels.com search page has been demonstrated with MERN stack.
 
-Live demo will be soon. 
+Live demo : https://hotelscom-clone-mernstack.herokuapp.com/ 
 
 ## Screenshots
 ![DesktopView](https://github.com/saygingiray/hotels.com-clone/blob/master/screenshots/1-Wide%20Screen.png)
