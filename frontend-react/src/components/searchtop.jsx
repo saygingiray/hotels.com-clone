@@ -345,7 +345,7 @@ export default function SearchTop() {
                                     {FiltersToBeShown()}</div>
                                 <div className="d-flex textSmall ms-3 mt-1">{incomingData.numberOfSearch} properties found. Showing results between {(filters.page - 1) * filters.limit} to {(filters.page * filters.limit > incomingData.numberOfSearch) ? incomingData.numberOfSearch : filters.page * filters.limit}</div>
 
-                                <div className="d-flex textSmall mt-2 justify-content-end">
+                                <div className="d-flex textSmall mt-2 justify-content-end pe-1">
                                     <SortBy
                                         sendData={(i) => { setFilters(prev => ({ ...prev, sortBy: (i) })) }}
                                     />
