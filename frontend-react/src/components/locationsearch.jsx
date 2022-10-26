@@ -32,7 +32,7 @@ export default function LocationSearchComponent(props) {
 
             {/* searching tab starting point */}
 
-            <div  id="tries" onBlur={props.onblurX}  tabIndex="0" className={(!props.locationsearchfocusX) ? "d-none" : "me-1 animate__animated animate__fadeIn"} style={{
+            <div  id="tries" onBlur={props.onblurX}  tabIndex="0" className={(!props.locationsearchfocusX) ? "d-none" : "me-1 p-2 animate__animated animate__fadeIn"} style={{
                 "width": (props.pageWidth > 650) ? "354px" : null , "backgroundColor": "white", "border": "1px solid  rgba(221, 221, 221, 0.744)",
                 "borderRadius": "5px",
                 "minHeight": "200px",
