@@ -21,7 +21,7 @@ export default function LocationSearchComponent(props) {
         
 
             <TextField id="outlined-basic" label="Going to"
-                sx={{ input: { background: "white", width: (props.pageWidth > 650) ? "330px" : "370px" } }}
+                sx={{ input: { background: "white", width: (props.pageWidth > 650) ? "330px" : props.pageWidth-35    } }}
                 autoComplete="off"
                 onChange={props.onchangeX}
                 onBlur={props.onblurX}
@@ -32,8 +32,8 @@ export default function LocationSearchComponent(props) {
 
             {/* searching tab starting point */}
 
-            <div  id="tries" onBlur={props.onblurX}  tabIndex="0" className={(!props.locationsearchfocusX) ? "d-none" : "p-2 animate__animated animate__fadeIn"} style={{
-                "width": (props.pageWidth > 650) ? "354px" : "380px", "backgroundColor": "white", "border": "1px solid  rgba(221, 221, 221, 0.744)",
+            <div  id="tries" onBlur={props.onblurX}  tabIndex="0" className={(!props.locationsearchfocusX) ? "d-none" : "me-1 animate__animated animate__fadeIn"} style={{
+                "width": (props.pageWidth > 650) ? "354px" : null , "backgroundColor": "white", "border": "1px solid  rgba(221, 221, 221, 0.744)",
                 "borderRadius": "5px",
                 "minHeight": "200px",
                 // "position": "-webkit-sticky", 

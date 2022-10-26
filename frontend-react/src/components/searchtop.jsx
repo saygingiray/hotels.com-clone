@@ -15,7 +15,7 @@ import RoomType from "./roomType";
 import FilterShown from "./filtersTopView";
 import SortBy from "./sortBy";
 import { ResultsMobile, ResultsWide } from "./results";
-import { PlaceHolder } from "./placeholder";
+import { PlaceHolder, PlaceHolderMobile } from "./placeholder";
 import Pagination from '@mui/material/Pagination';
 import dayjs from "dayjs";
 import PageWidth from "./pageWidth";
@@ -143,7 +143,7 @@ export default function SearchTop() {
             <hr></hr>
 
             <RoomType
-                sendData={(i) => { setFilters(prev => ({ ...prev, roomTypes: (i) }));setBools((prev) => ({ ...prev, seeMoreFilter: (false) })) }}
+                sendData={(i) => { setFilters(prev => ({ ...prev, roomTypes: (i) })); setBools((prev) => ({ ...prev, seeMoreFilter: (false) })) }}
                 changedByXbutton={filters.roomTypes}
 
             />
@@ -220,11 +220,11 @@ export default function SearchTop() {
             <PageWidth
                 sendData={(i) => { setincomingData(prev => ({ ...prev, pageWidth: (i) })) }}
             />
-            <div className="d-flex px-5 justify-content-center w-100" >
-            {/* style={(incomingData.pageWidth<650) ? { "maxWidth": "300" , "padding" : "10px" } : { "maxWidth": "1200px" } } */}
-                <div className={(incomingData.pageWidth > 650) ? "d-flex flex-row p-1 pt-3" : "d-flex flex-column justify-content-center mt-2"} style={(incomingData.pageWidth > 650) ? {"width" : "1200px"} : null}>
+            <div className="d-flex justify-content-center w-100" >
+                {/* style={(incomingData.pageWidth<650) ? { "maxWidth": "300" , "padding" : "10px" } : { "maxWidth": "1200px" } } */}
+                <div className={(incomingData.pageWidth > 650) ? "d-flex flex-row justify-content-between p-1 pt-3" : "d-flex flex-column justify-content-center mt-2"} style={(incomingData.pageWidth > 650) ? { "width": "1200px" } : null}>
                     {/* Locationsearch starts here */}
-                    <div className={(incomingData.pageWidth > 650) ? " p-0 me-3 bg-white" : " ms-2 me-2 bg-white"} style={(incomingData.pageWidth > 650) ? { "minWidth": "330px" } : null }>
+                    <div className={(incomingData.pageWidth > 650) ? " p-0 bg-white" : "bg-white"} style={(incomingData.pageWidth > 650) ? { "minWidth": "330px" } : null}>
                         <LocationSearchComponent
                             onchangeX={(event) => { setsearchLocation((prev => ({ ...prev, address: event.target.value }))); setBools((prev => ({ ...prev, locationSearchFocus: true }))) }}
                             onfocuscaptureX={() => { setBools((prev => ({ ...prev, locationSearchFocus: true }))) }}
@@ -240,55 +240,63 @@ export default function SearchTop() {
                         />
                     </div>
                     {/* date-picker starting point */}
-                    <div className="d-flex me-3 ">
-                        <div className={(incomingData.pageWidth > 650) ? "row" : "row justify-content-between mt-1"} style={(incomingData.pageWidth < 650) ? { "width": incomingData.pageWidth } : null}>
-                            <DatePickerInAndOut
-                                valueX={dateValue.checkin}
-                                onchangeX={(newValue) => { (dateValue.checkout == "") ? setdateValue((prev) => ({ checkout: newValue, checkin: newValue })) : setdateValue((prev) => ({ ...prev, checkin: newValue })) }}
-                                valueY={dateValue.checkout}
-                                onchangeY={(newValue2) => { setdateValue((prev) => ({ ...prev, checkout: newValue2 })); }}
-                                pageWidth={incomingData.pageWidth}
-                            />
-                        </div>
-                    </div>
-                    {/* Travellers starting point */}
 
-                    <div className={(incomingData.pageWidth > 650) ? "d-flex" : "d-flex p-0 mt-1"}>
-                        <TravellersComponent
-                            onclickcaptureX={() => { setBools((prev) => ({ ...prev, travellersPopup: true })) }}
-                            valuefortextfield={roomDetails.adults + " adults " + roomDetails.children.numberX + " children"}
-                            modalopen={bools.travellersPopup}
-                            modalonclose={() => { setBools((prev) => ({ ...prev, travellersPopup: false })) }}
-                            adultminusbuttondisabled={(roomDetails.adults == 1) ? true : false}
-                            adultminusbuttonclicked={() => { setroomDetails((prev) => ({ ...prev, adults: roomDetails.adults - 1 })) }}
-                            adultnumber={roomDetails.adults}
-                            adultplusbuttondisabled={(roomDetails.adults == 14) ? true : false}
-                            adultplusbuttonclicked={() => { setroomDetails((prev) => ({ ...prev, adults: roomDetails.adults + 1 })) }}
-                            childrenminusbuttondisabled={(roomDetails.children.numberX == 0) ? true : false}
-                            childrenminusbuttonclicked={() => { setroomDetails((prev) => ({ ...prev, children: { ...prev.children, numberX: roomDetails.children.numberX - 1 } })) }}
-                            childrennumber={roomDetails.children.numberX}
-                            childrenplusbuttondisabled={(roomDetails.children.numberX == 6) ? true : false}
-                            childrenplusbuttonclicked={() => { setroomDetails((prev) => ({ ...prev, children: { ...prev.children, numberX: roomDetails.children.numberX + 1 } })) }}
-                            childOBJ={roomDetails.children}
-                            childrenAgeSet={(i) => { return (event) => { setroomDetails((prev) => ({ ...prev, children: { ...prev.children, [i]: event.target.value } })) } }}
+                    <div className={(incomingData.pageWidth > 650) ? "d-flex " : "d-flex flex-row justify-content-between mt-1"} style={(incomingData.pageWidth < 650) ? null : null}>
+                        <DatePickerInAndOut
+                            valueX={dateValue.checkin}
+                            onchangeX={(newValue) => { (dateValue.checkout == "") ? setdateValue((prev) => ({ checkout: newValue, checkin: newValue })) : setdateValue((prev) => ({ ...prev, checkin: newValue })) }}
+                            valueY={dateValue.checkout}
+                            onchangeY={(newValue2) => { setdateValue((prev) => ({ ...prev, checkout: newValue2 })); }}
                             pageWidth={incomingData.pageWidth}
-
-
                         />
                     </div>
 
-                    {/* Submit Button starting point */}
-                    <div className={(incomingData.pageWidth > 650) ? "d-flex p-0 ms-auto" : "d-flex text-right mt-1 ms-auto pe-0"}>
-                        <button onClick={() => setFilters(prev => ({ ...prev, bedTypes: filters.bedTypes }))} type="button" className="btn btn-danger searchButton" style={(incomingData.pageWidth < 650) ? { "width": "180px", "borderTopRightRadius": "0px" , "marginRight" : "0", "paddingRight" : "0" } : null} >Search</button>
+
+                    <div className={(incomingData.pageWidth < 650) ? "d-flex flex-row justify-content-between mt-1 " : " d-flex flex-row float-right justify-content-between"}>
+                        {/* Travellers starting point */}
+
+                        <div className={(incomingData.pageWidth > 650) ? "d-flex me-2" : "d-flex p-0"} style={(incomingData.pageWidth < 650) ? { "maxWidth": "130px" } : null}>
+                            <TravellersComponent
+                                onclickcaptureX={() => { setBools((prev) => ({ ...prev, travellersPopup: true })) }}
+                                valuefortextfield={roomDetails.adults + " adults " + roomDetails.children.numberX + " children"}
+                                modalopen={bools.travellersPopup}
+                                modalonclose={() => { setBools((prev) => ({ ...prev, travellersPopup: false })) }}
+                                adultminusbuttondisabled={(roomDetails.adults == 1) ? true : false}
+                                adultminusbuttonclicked={() => { setroomDetails((prev) => ({ ...prev, adults: roomDetails.adults - 1 })) }}
+                                adultnumber={roomDetails.adults}
+                                adultplusbuttondisabled={(roomDetails.adults == 14) ? true : false}
+                                adultplusbuttonclicked={() => { setroomDetails((prev) => ({ ...prev, adults: roomDetails.adults + 1 })) }}
+                                childrenminusbuttondisabled={(roomDetails.children.numberX == 0) ? true : false}
+                                childrenminusbuttonclicked={() => { setroomDetails((prev) => ({ ...prev, children: { ...prev.children, numberX: roomDetails.children.numberX - 1 } })) }}
+                                childrennumber={roomDetails.children.numberX}
+                                childrenplusbuttondisabled={(roomDetails.children.numberX == 6) ? true : false}
+                                childrenplusbuttonclicked={() => { setroomDetails((prev) => ({ ...prev, children: { ...prev.children, numberX: roomDetails.children.numberX + 1 } })) }}
+                                childOBJ={roomDetails.children}
+                                childrenAgeSet={(i) => { return (event) => { setroomDetails((prev) => ({ ...prev, children: { ...prev.children, [i]: event.target.value } })) } }}
+                                pageWidth={incomingData.pageWidth}
+
+
+                            />
+                        </div>
+
+                        {/* Submit Button starting point */}
+                        <div className={(incomingData.pageWidth > 650) ? "d-flex p-0" : "d-flex pe-0"}>
+                            <button onClick={() => setFilters(prev => ({ ...prev, bedTypes: filters.bedTypes }))} type="button" className="btn btn-danger searchButton" style={(incomingData.pageWidth < 650) ? { "width": "170px", "borderTopRightRadius": "0px", "marginRight": "0", "paddingRight": "0" } : null} >Search</button>
+                        </div>
+
+
                     </div>
+
+
                 </div>
 
             </div>
 
 
+
             {/* BOTTOM PART STARTS HERE **********  */}
 
-            <div className="d-flex  justify-content-center mt-3" >
+            <div className="d-flex justify-content-center mt-3" >
                 <div className={(incomingData.pageWidth < 650) ? "d-flex flex-column" : "d-flex flex-row"} style={(incomingData.pageWidth > 650) ? { "width": "1200px" } : null} >
 
                     {/* Left (FILTERS) side starts here */}
@@ -297,8 +305,8 @@ export default function SearchTop() {
 
                     {(incomingData.pageWidth < 650) ?
 
-                        <div className="d-flex justify-content-center">
-                            <button onClick={() => { setBools((prev) => ({ ...prev, seeMoreFilter: (!bools.seeMoreFilter) })) }} type="button" className="btn btn-outline-danger" style={{ "width": incomingData.pageWidth - 25 }}><i className="bi bi-filter"></i> Filters</button>
+                        <div className="d-flex px-4 justify-content-center">
+                            <button onClick={() => { setBools((prev) => ({ ...prev, seeMoreFilter: (!bools.seeMoreFilter) })) }} type="button" className="btn btn-outline-danger w-100" ><i className="bi bi-filter"></i> Filters</button>
                         </div> : null}
 
                     <div className={(incomingData.pageWidth > 650) ? "d-flex flex-column ps-1" : (bools.seeMoreFilter) ? "seeMoreFilter d-flex bg-white p-3 mt-2 flex-column" : "seeLessFilter"}>
@@ -319,7 +327,7 @@ export default function SearchTop() {
                             <div className="d-flex w-100">
                                 <div className="d-flex flex-column">
                                     {FiltersToBeShown()}
-                                    <div className="textSmall">{incomingData.numberOfSearch} properties found. Showing results between {(filters.page - 1) * filters.limit} to {(filters.page * filters.limit > incomingData.numberOfSearch) ? incomingData.numberOfSearch : filters.page * filters.limit}</div>
+                                    <div className="d-flex textSmall ms-2">{incomingData.numberOfSearch} properties found. Showing results between {(filters.page - 1) * filters.limit} to {(filters.page * filters.limit > incomingData.numberOfSearch) ? incomingData.numberOfSearch : filters.page * filters.limit}</div>
                                 </div>
                                 <div className="textSmall ms-auto">
                                     <SortBy
@@ -333,10 +341,10 @@ export default function SearchTop() {
                         {/* Filtered Items to be shown + sortby  */}
                         {(incomingData.pageWidth > 650) ? null :
                             <>
-                                <div className="d-flex flex-column">
-                                    {FiltersToBeShown()}
-                                    <div className="textSmall mt-1">{incomingData.numberOfSearch} properties found. Showing results between {(filters.page - 1) * filters.limit} to {(filters.page * filters.limit > incomingData.numberOfSearch) ? incomingData.numberOfSearch : filters.page * filters.limit}</div>
-                                </div>
+                                <div className="d-flex ms-2">
+                                    {FiltersToBeShown()}</div>
+                                <div className="d-flex textSmall ms-3 mt-1">{incomingData.numberOfSearch} properties found. Showing results between {(filters.page - 1) * filters.limit} to {(filters.page * filters.limit > incomingData.numberOfSearch) ? incomingData.numberOfSearch : filters.page * filters.limit}</div>
+
                                 <div className="d-flex textSmall mt-2 justify-content-end">
                                     <SortBy
                                         sendData={(i) => { setFilters(prev => ({ ...prev, sortBy: (i) })) }}
@@ -345,7 +353,7 @@ export default function SearchTop() {
                             </>
                         }
 
-                        {/* <PlaceHolder turn={bools.fetching} /> */}
+                        {(incomingData.pageWidth > 650) ? <PlaceHolder turn={bools.fetching} /> : <PlaceHolderMobile turn={bools.fetching} />}
 
                         {/* Results */}
                         {(incomingData.pageWidth > 650) ?
@@ -353,11 +361,13 @@ export default function SearchTop() {
                                 data={incomingData.results}
                                 datesCount={(Math.ceil((dateValue.checkout.$d - dateValue.checkin.$d) / (1000 * 60 * 60 * 24)))}
                             /> :
-                            <ResultsMobile
-                                data={incomingData.results}
-                                datesCount={(Math.ceil((dateValue.checkout.$d - dateValue.checkin.$d) / (1000 * 60 * 60 * 24)))}
-                                pageWidth={incomingData.pageWidth}
-                            />
+                            <div className="d-flex flex-column justify-content-center align-items-center w-100">
+                                <ResultsMobile
+                                    data={incomingData.results}
+                                    datesCount={(Math.ceil((dateValue.checkout.$d - dateValue.checkin.$d) / (1000 * 60 * 60 * 24)))}
+                                    pageWidth={incomingData.pageWidth}
+                                />
+                            </div>
                         }
 
                         <div className="d-flex justify-content-center mt-4 mb-5">

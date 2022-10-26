@@ -71,7 +71,7 @@ return (<>
 <div  >
                     <TextField
                         label="Travellers" variant="filled"
-                        sx={{ input: { background: "white", width: (props.pageWidth > 650) ? "230px" : "176px" } }}
+                        sx={{ input: { background: "white", width: (props.pageWidth > 650) ? "240px" : "146px" } }}
                         onClickCapture={props.onclickcaptureX}
                         value={props.valuefortextfield}
 
@@ -86,10 +86,10 @@ return (<>
                         <div className="d-flex p-4 flex-column" style={{
                             "position": 'absolute',
                             "top": (props.pageWidth > 650) ? "10%" : "5%",
-                            "left": (props.pageWidth > 650) ? "35%" : "10%",
-                            "right": (props.pageWidth < 650) ? "10%" : null,
-                            "minWidth": "400px",
-                            "maxWidth": "400px",
+                            "left": (props.pageWidth > 650) ? "35%" : "5%",
+                            
+                            "minWidth": (props.pageWidth < 650) ? "90%" : "400px",
+                            "maxWidth": (props.pageWidth < 650) ? "90%" : "400px",
                             "minHeight": "600px",
                             "backgroundColor": "white"
 
