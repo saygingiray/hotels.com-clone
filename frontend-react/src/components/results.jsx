@@ -180,27 +180,27 @@ export function ResultsMobile(props) {
                     <div className="textSmallBold">{i.name}</div>
                     <div className="textSmall"><StringSummary /></div>
                     <div className="d-flex flex-row">
-                        <table className="table table-borderless mt-2 mb-0 table-hover" style={{ "width": "250px" }}>
+                        <table className="table table-borderless mt-2 mb-0 table-hover" style={{  }}>
                             <tbody>
                                 <tr>
                                     <td><i className="bi bi-geo-fill"></i></td>
-                                    <td className="textSmall fw-bold">{i.address.street}</td>
+                                    <td className="textSmall ">{i.address.street}</td>
                                 </tr>
                                 <tr>
                                     <td><i className="bi bi-building" style={{ "fontSize": "15px" }}></i></td>
-                                    <td className="textSmall fw-bold">{i.property_type}</td>
+                                    <td className="textSmall ">{i.property_type}</td>
                                 </tr>
                                 <tr>
                                     <td><i className="bi bi-house-heart"></i></td>
-                                    <td className="textSmall fw-bold">{i.room_type}</td>
+                                    <td className="textSmall ">{i.room_type}</td>
                                 </tr>
                                 <tr>
                                     <td><i className="bi bi-aspect-ratio"></i></td>
-                                    <td className="textSmall fw-bold">{i.bed_type}</td>
+                                    <td className="textSmall ">{i.bed_type}</td>
                                 </tr>
                                 <tr>
                                     <td><i className="bi bi-gear"></i></td>
-                                    <td className="textSmall fw-bold">Maximum Guest Allowed : {i.accommodates} </td>
+                                    <td className="textSmall ">Maximum Guest Allowed : {i.accommodates} </td>
                                 </tr>
                             </tbody>
                         </table>
