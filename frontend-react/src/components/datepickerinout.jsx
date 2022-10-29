@@ -22,7 +22,7 @@ export default function DatePickerInAndOut(props) {
                     value={props.valueX || null}
                     onChange={props.onchangeX}
                     renderInput={(params) => <TextField {...params}
-                        sx={{ input: { background: "white" } }}
+                        sx={{ input: { background: "white" , width : "100%" } }}
                         variant="filled"
                     />} />
             </LocalizationProvider>
@@ -39,7 +39,7 @@ export default function DatePickerInAndOut(props) {
                     onChange={props.onchangeY}
                     minDate={props.valueX}
                     renderInput={(params2) => <TextField {...params2}
-                        sx={{ input: { background: "white"} }}
+                        sx={{ input: { background: "white", width : "100%"} }}
                         variant="filled"
                     />} />
             </LocalizationProvider>

@@ -174,7 +174,7 @@ export function ResultsMobile(props) {
 
             }
 
-            return <div key={index} className="d-flex flex-column mt-4 bg-white" style={{"width" : "90%"}} >
+            return <div key={index} className="d-flex flex-column mt-4 bg-white" style={{"width" : "95%"}} >
                 <div className=""><ImageSlider sn={"pic" + index} pic={i.images.picture_url} pageWidth={props.pageWidth} /></div>
                 <div className="p-2">
                     <div className="textSmallBold">{i.name}</div>
