@@ -24,7 +24,9 @@ export default function DatePickerInAndOut(props) {
                     renderInput={(params) => <TextField {...params}
                         sx={{ input: { background: "white" , width : "100%" } }}
                         variant="filled"
-                    />} />
+                        fullWidth           
+                    />} 
+                    />
             </LocalizationProvider>
         </div>
         <div className={(props.pageWidth > 650) ? "datePickerLARGE p-0 bg-white " : "p-0  bg-white"}
@@ -41,6 +43,7 @@ export default function DatePickerInAndOut(props) {
                     renderInput={(params2) => <TextField {...params2}
                         sx={{ input: { background: "white", width : "100%"} }}
                         variant="filled"
+                        fullWidth
                     />} />
             </LocalizationProvider>
         </div>
