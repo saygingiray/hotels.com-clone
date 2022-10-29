@@ -255,7 +255,7 @@ export default function SearchTop() {
                     <div className={(incomingData.pageWidth < 650) ? "d-flex flex-row justify-content-between mt-1 " : " d-flex flex-row float-right justify-content-between"}>
                         {/* Travellers starting point */}
 
-                        <div className={(incomingData.pageWidth > 650) ? "d-flex me-2" : "d-flex p-0"} style={(incomingData.pageWidth < 650) ? { "maxWidth": "130px" } : null}>
+                        <div className={(incomingData.pageWidth > 650) ? "d-flex me-2" : "d-flex p-0"} style={(incomingData.pageWidth < 650) ? { "maxWidth": "170px" } : null}>
                             <TravellersComponent
                                 onclickcaptureX={() => { setBools((prev) => ({ ...prev, travellersPopup: true })) }}
                                 valuefortextfield={roomDetails.adults + " adults " + roomDetails.children.numberX + " children"}
@@ -280,8 +280,8 @@ export default function SearchTop() {
                         </div>
 
                         {/* Submit Button starting point */}
-                        <div className={(incomingData.pageWidth > 650) ? "d-flex p-0" : "d-flex pe-0"}>
-                            <button onClick={() => setFilters(prev => ({ ...prev, bedTypes: filters.bedTypes }))} type="button" className="btn btn-danger searchButton" style={(incomingData.pageWidth < 650) ? { "width": "170px", "borderTopRightRadius": "0px", "marginRight": "0", "paddingRight": "0" } : null} >Search</button>
+                        <div className={(incomingData.pageWidth > 650) ? "d-flex p-0" : "d-flex pe-0"} style={(incomingData.pageWidth < 650) ? { "maxWidth": "170px" } : null}>
+                            <button onClick={() => setFilters(prev => ({ ...prev, bedTypes: filters.bedTypes }))} type="button" className="btn btn-danger searchButton" style={(incomingData.pageWidth < 650) ? { "minWidth": "100%", "borderTopRightRadius": "0px", "marginRight": "0", "paddingRight": "0" } : null} >Search</button>
                         </div>
 
 
@@ -296,8 +296,8 @@ export default function SearchTop() {
 
             {/* BOTTOM PART STARTS HERE **********  */}
 
-            <div className="d-flex justify-content-center mt-3" >
-                <div className={(incomingData.pageWidth < 650) ? "d-flex flex-column" : "d-flex flex-row"} style={(incomingData.pageWidth > 650) ? { "width": "1200px" } : null} >
+            <div className="d-flex justify-content-center w-100 mt-3 " >
+                <div className={(incomingData.pageWidth < 650) ? "d-flex flex-column " : "d-flex flex-row"} style={(incomingData.pageWidth > 650) ? { "width": "1200px" } : null} >
 
                     {/* Left (FILTERS) side starts here */}
                     {/* Responsive for wide screens and mobiles */}
@@ -305,7 +305,7 @@ export default function SearchTop() {
 
                     {(incomingData.pageWidth < 650) ?
 
-                        <div className="d-flex px-4 justify-content-center">
+                        <div className="d-flex px-2 justify-content-center">
                             <button onClick={() => { setBools((prev) => ({ ...prev, seeMoreFilter: (!bools.seeMoreFilter) })) }} type="button" className="btn btn-outline-danger w-100" ><i className="bi bi-filter"></i> Filters</button>
                         </div> : null}
 
@@ -341,14 +341,16 @@ export default function SearchTop() {
                         {/* Filtered Items to be shown + sortby  */}
                         {(incomingData.pageWidth > 650) ? null :
                             <>
-                                <div className="d-flex ms-2">
-                                    {FiltersToBeShown()}</div>
-                                <div className="d-flex textSmall ms-3 mt-1">{incomingData.numberOfSearch} properties found. Showing results between {(filters.page - 1) * filters.limit} to {(filters.page * filters.limit > incomingData.numberOfSearch) ? incomingData.numberOfSearch : filters.page * filters.limit}</div>
+                                <div className="d-flex flex-column w-100">
+                                    <div className="d-flex px-1">
+                                        {FiltersToBeShown()}</div>
+                                    <div className="d-flex textSmall px-1 mt-1">{incomingData.numberOfSearch} properties found. Showing results between {(filters.page - 1) * filters.limit} to {(filters.page * filters.limit > incomingData.numberOfSearch) ? incomingData.numberOfSearch : filters.page * filters.limit}</div>
 
-                                <div className="d-flex textSmall mt-2 justify-content-end pe-1">
-                                    <SortBy
-                                        sendData={(i) => { setFilters(prev => ({ ...prev, sortBy: (i) })) }}
-                                    />
+                                    <div className="d-flex textSmall mt-2 justify-content-end pe-1">
+                                        <SortBy
+                                            sendData={(i) => { setFilters(prev => ({ ...prev, sortBy: (i) })) }}
+                                        />
+                                    </div>
                                 </div>
                             </>
                         }
