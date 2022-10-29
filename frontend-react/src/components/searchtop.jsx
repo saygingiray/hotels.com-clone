@@ -327,7 +327,7 @@ export default function SearchTop() {
                             <div className="d-flex w-100">
                                 <div className="d-flex flex-column">
                                     {FiltersToBeShown()}
-                                    <div className="d-flex textSmall">{incomingData.numberOfSearch} properties found. Showing results between {(filters.page - 1) * filters.limit} to {(filters.page * filters.limit > incomingData.numberOfSearch) ? incomingData.numberOfSearch : filters.page * filters.limit}</div>
+                                    <div className="d-flex textSmall ">{incomingData.numberOfSearch} properties found. Showing results between {(filters.page - 1) * filters.limit} to {(filters.page * filters.limit > incomingData.numberOfSearch) ? incomingData.numberOfSearch : filters.page * filters.limit}</div>
                                 </div>
                                 <div className="textSmall ms-auto">
                                     <SortBy
