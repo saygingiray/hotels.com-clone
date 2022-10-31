@@ -224,7 +224,7 @@ export default function SearchTop() {
                 {/* style={(incomingData.pageWidth<650) ? { "maxWidth": "300" , "padding" : "10px" } : { "maxWidth": "1200px" } } */}
                 <div className={(incomingData.pageWidth > 650) ? "d-flex flex-row justify-content-between p-1 pt-3" : "d-flex flex-column justify-content-center mt-2 px-1"} style={(incomingData.pageWidth > 650) ? { "width": "1200px" } : null}>
                     {/* Locationsearch starts here */}
-                    <div className={(incomingData.pageWidth > 650) ? " p-0 bg-white" : "d-flex w-100 bg-white"} style={(incomingData.pageWidth > 650) ? { "minWidth": "330px" } : null}>
+                    <div className={(incomingData.pageWidth > 650) ? " p-0 bg-white" : "w-100 bg-white"} style={(incomingData.pageWidth > 650) ? { "minWidth": "330px" } : null}>
                         <LocationSearchComponent
                             onchangeX={(event) => { setsearchLocation((prev => ({ ...prev, address: event.target.value }))); setBools((prev => ({ ...prev, locationSearchFocus: true }))) }}
                             onfocuscaptureX={() => { setBools((prev => ({ ...prev, locationSearchFocus: true }))) }}
