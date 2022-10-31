@@ -222,9 +222,9 @@ export default function SearchTop() {
             />
             <div className="d-flex justify-content-center w-100" >
                 {/* style={(incomingData.pageWidth<650) ? { "maxWidth": "300" , "padding" : "10px" } : { "maxWidth": "1200px" } } */}
-                <div className={(incomingData.pageWidth > 650) ? "d-flex flex-row justify-content-between p-1 pt-3" : "d-flex flex-column justify-content-center mt-2"} style={(incomingData.pageWidth > 650) ? { "width": "1200px" } : null}>
+                <div className={(incomingData.pageWidth > 650) ? "d-flex flex-row justify-content-between p-1 pt-3" : "d-flex flex-column justify-content-center mt-2 px-1"} style={(incomingData.pageWidth > 650) ? { "width": "1200px" } : null}>
                     {/* Locationsearch starts here */}
-                    <div className={(incomingData.pageWidth > 650) ? " p-0 bg-white" : "bg-white"} style={(incomingData.pageWidth > 650) ? { "minWidth": "330px" } : null}>
+                    <div className={(incomingData.pageWidth > 650) ? " p-0 bg-white" : "d-flex w-100 bg-white"} style={(incomingData.pageWidth > 650) ? { "minWidth": "330px" } : null}>
                         <LocationSearchComponent
                             onchangeX={(event) => { setsearchLocation((prev => ({ ...prev, address: event.target.value }))); setBools((prev => ({ ...prev, locationSearchFocus: true }))) }}
                             onfocuscaptureX={() => { setBools((prev => ({ ...prev, locationSearchFocus: true }))) }}
@@ -241,7 +241,7 @@ export default function SearchTop() {
                     </div>
                     {/* date-picker starting point */}
 
-                    <div className={(incomingData.pageWidth > 650) ? "d-flex " : "d-flex flex-row justify-content-between mt-1"} style={(incomingData.pageWidth < 650) ? null : null}>
+                    <div className={(incomingData.pageWidth > 650) ? "d-flex " : "d-flex flex-row justify-content-between mt-1 w-100"} style={(incomingData.pageWidth < 650) ? null : null}>
                         <DatePickerInAndOut
                             valueX={dateValue.checkin}
                             onchangeX={(newValue) => { (dateValue.checkout == "") ? setdateValue((prev) => ({ checkout: newValue, checkin: newValue })) : setdateValue((prev) => ({ ...prev, checkin: newValue })) }}
@@ -252,10 +252,10 @@ export default function SearchTop() {
                     </div>
 
 
-                    <div className={(incomingData.pageWidth < 650) ? "d-flex flex-row justify-content-between mt-1 " : " d-flex flex-row float-right justify-content-between"}>
+                    <div className={(incomingData.pageWidth < 650) ? "d-flex flex-row justify-content-between mt-1 w-100 " : " d-flex flex-row float-right justify-content-between"}>
                         {/* Travellers starting point */}
 
-                        <div className={(incomingData.pageWidth > 650) ? "d-flex me-2" : "d-flex p-0"} style={(incomingData.pageWidth < 650) ? { "maxWidth": "170px" } : null}>
+                        <div className={(incomingData.pageWidth > 650) ? "d-flex me-2" : "d-flex p-0"} style={(incomingData.pageWidth < 650) ? { "maxWidth": "45%" } : null}>
                             <TravellersComponent
                                 onclickcaptureX={() => { setBools((prev) => ({ ...prev, travellersPopup: true })) }}
                                 valuefortextfield={roomDetails.adults + " adults " + roomDetails.children.numberX + " children"}
@@ -280,7 +280,7 @@ export default function SearchTop() {
                         </div>
 
                         {/* Submit Button starting point */}
-                        <div className={(incomingData.pageWidth > 650) ? "d-flex p-0" : "d-flex"} style={(incomingData.pageWidth < 650) ? { "width": "170px" } : null}>
+                        <div className={(incomingData.pageWidth > 650) ? "d-flex p-0" : "d-flex"} style={(incomingData.pageWidth < 650) ? { "width": "45%" } : null}>
                             <button onClick={() => setFilters(prev => ({ ...prev, bedTypes: filters.bedTypes }))} type="button" className="btn btn-danger searchButton" style={(incomingData.pageWidth < 650) ? { "width" : "100%", "borderTopRightRadius": "0px" } : {"width" : "200px"}} >Search</button>
                         </div>
 
@@ -297,7 +297,7 @@ export default function SearchTop() {
             {/* BOTTOM PART STARTS HERE **********  */}
 
             <div className="d-flex justify-content-center w-100 mt-3 " >
-                <div className={(incomingData.pageWidth < 650) ? "d-flex flex-column " : "d-flex flex-row"} style={(incomingData.pageWidth > 650) ? { "width": "1200px" } : null} >
+                <div className={(incomingData.pageWidth < 650) ? "d-flex flex-column w-100 " : "d-flex flex-row"} style={(incomingData.pageWidth > 650) ? { "width": "1200px" } : null} >
 
                     {/* Left (FILTERS) side starts here */}
                     {/* Responsive for wide screens and mobiles */}
