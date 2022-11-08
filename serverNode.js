@@ -156,6 +156,78 @@ app.get("/search", async (req, res) => {
 
 
 
+app.get("/hotelDetails", async (req, res) => {
+    try {
+        let queryHotel = {};
+        queryHotel["_id"] = req.query.id
+        console.log(queryHotel)
+        let optionsHotel = {};
+        optionsHotel.projection = { reviews: 0 };
+        await client.connect();
+        const dataHotelOne = await collections.findOne(queryHotel,optionsHotel);
+        console.log(dataHotelOne)
+        res.json(dataHotelOne);
+    }
+    catch (err) {
+        console.log(err);
+    }
+
+    console.log(req.query)
+
+});
+
+
+
+
+app.get("/hotelReviews", async (req, res) => {
+    try {
+        let queryHotel = {};
+        queryHotel["_id"] = req.query.id
+        // console.log(queryHotel)
+
+        // let optionsHotel = {};
+        // optionsHotel.projection = { reviews: 1 };
+        // optionsHotel["$slice"] = 10;
+        // // db.inventory.aggregate( [ { $unwind : "$sizes" } ] )
+
+        // //BURADA KALDIK, SKIP VE LIMIT EKLENECEK !
+
+
+        await client.connect();
+        const dataHotelReview = await collections.aggregate([
+            { $match: {_id: req.query.id}},
+            { $unwind : '$reviews' },
+            { $project : { _id : 0, 'reviews' : 1 } },
+            { $sort : { 'reviews.date' : -1 } },
+            { $skip : 45},
+            { $limit : 10 },  
+        ]).toArray();
+
+        const countReviews = await collections.aggregate([
+            { $match: {_id: req.query.id}},
+            { $unwind : '$reviews' },
+            { $project : { _id : 0, 'reviews' : 1 } },
+            { $group : { _id : '$name', totaldocs : { $sum : 1 } } },
+        ]).next();
+
+
+        const dataToSend = {
+            allReviews : dataHotelReview,
+            qtyOfReviews : countReviews
+        }
+
+        console.log(dataHotelReview)
+        console.log(countReviews)
+        res.json(dataToSend);
+    }
+    catch (err) {
+        console.log(err);
+    }
+
+    console.log(req.query)
+
+});
+
 
 
 

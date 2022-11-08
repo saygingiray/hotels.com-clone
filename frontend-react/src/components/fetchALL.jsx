@@ -78,3 +78,30 @@ export async function searchResultsFromServer(x) {
 
 
 }
+
+export async function fetchHotelDetails(x) {
+    // console.log(new URLSearchParams(x).toString())
+    let valueHotel = {};
+    let tempQuery = '/hotelDetails?' + new URLSearchParams(x).toString()
+
+    await fetch(tempQuery, requestOptions)
+    .then(response => response.json())
+    .then((value) =>  { valueHotel = value });
+
+    return valueHotel;
+
+}
+
+
+export async function fetchHotelReviews(x) {
+    // console.log(new URLSearchParams(x).toString())
+    let valueHotelReview = {};
+    let tempQuery = '/hotelReviews?' + new URLSearchParams(x).toString()
+
+    await fetch(tempQuery, requestOptions)
+    .then(response => response.json())
+    .then((value) =>  { valueHotelReview = value });
+console.log(valueHotelReview)
+    return valueHotelReview;
+
+}

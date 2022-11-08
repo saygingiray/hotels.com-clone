@@ -255,7 +255,7 @@ export default function SearchTop() {
                     <div className={(incomingData.pageWidth < 650) ? "d-flex flex-row justify-content-between mt-1 w-100 " : " d-flex flex-row float-right justify-content-between"}>
                         {/* Travellers starting point */}
 
-                        <div className={(incomingData.pageWidth > 650) ? "d-flex me-2" : "d-flex p-0"} style={(incomingData.pageWidth < 650) ? { "maxWidth": "45%" } : null}>
+                        <div className={(incomingData.pageWidth > 650) ? "d-flex me-2" : "d-flex p-0"} style={(incomingData.pageWidth < 650) ? { "maxWidth": "45%", "width" : "45%" } : null}>
                             <TravellersComponent
                                 onclickcaptureX={() => { setBools((prev) => ({ ...prev, travellersPopup: true })) }}
                                 valuefortextfield={roomDetails.adults + " adults " + roomDetails.children.numberX + " children"}

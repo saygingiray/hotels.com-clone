@@ -78,6 +78,14 @@ font-weight: 900;
 
 }
 
+.textLargeBold{
+  font-size: 20px;
+  font-weight: 900;
+  font-family: 'Inter', sans-serif;
+
+
+}
+
 .preloader1 {
   max-width : 200px ;
   min-width : 200px ;
