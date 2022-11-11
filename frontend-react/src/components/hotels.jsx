@@ -6,6 +6,7 @@ import PageWidth from "./pageWidth";
 import Rating from '@mui/material/Rating';
 import Modal from '@mui/material/Modal';
 import { ReviewScoresListing, SeeReviews } from "./hotelPageHelper";
+import GoogleMapAPI from "./googlemap";
 
 
 export default function HotelPage(props) {
@@ -20,7 +21,7 @@ export default function HotelPage(props) {
     const hotelProcess = async () => {
         setBools((prev => ({ ...prev, fetching: true })))
         const data = await fetchHotelDetails({ id }); sethotelData(data);
-       
+
         setBools((prev => ({ ...prev, fetching: false })))
 
     }
@@ -68,7 +69,7 @@ export default function HotelPage(props) {
                         <span className="textSmallBold mt-2"><ReviewText /></span>
                         {(!hotelData?.number_of_reviews == 0) ? <div onClick={() => setBools((prev) => ({ ...prev, reviewModal: true }))} className="textSmall" role="button" style={{ "color": "blue" }}>See all {hotelData?.number_of_reviews} reviews</div> : null}
 
-                        <SeeReviews 
+                        <SeeReviews
                             modalOpen={bools.reviewModal}
                             modalClose={() => setBools((prev) => ({ ...prev, reviewModal: false }))}
                             mobileScreen={bools.mobileScreen}
@@ -77,39 +78,10 @@ export default function HotelPage(props) {
                             scores={hotelData?.review_scores}
                         />
 
-                        {/* <Modal
-                            open={bools.reviewModal}
-                            onClose={() => setBools((prev) => ({ ...prev, reviewModal: false }))}
-                            aria-labelledby="modal-modal-title"
-                            aria-describedby="modal-modal-description"
-
-
-                        >
-                            <div className={(!bools.mobileScreen) ? "d-flex p-2 w-75 flex-row" : "d-flex p-2 w-75 flex-column"} style={{
-                                "position": 'absolute',
-                                "top": (!bools.mobileScreen) ? "10%" : "5%",
-                                "left": (!bools.mobileScreen) ? "12%" : "12%",
-                                "right": (!bools.mobileScreen) ? "12%" : "12%",
-                                "minHeight": "600px",
-                                "backgroundColor": "white"
-
-                            }}>
-                                <div className={(!bools.mobileScreen) ? "d-flex flex-column w-25" : "d-flex flex-column w-100"}>
-                                    <div className="textMediumBold">{hotelData.review_scores?.review_scores_rating}/100 ({hotelData?.number_of_reviews} reviews )</div>
-                                    <ReviewScoresListing
-                                        data={hotelData?.review_scores} />
-                                </div>
-                                <div className={(!bools.mobileScreen) ? "d-flex flex-column w-75 px-4" : "d-flex flex-column w-100"}>
-                                </div>
-                            </div>
-                        </Modal> */}
-
-
-
                     </div>
-                    <div className={(!bools.mobileScreen) ? "d-flex w-50" : "d-flex"}>
-                        
-                        <span>in progress.</span>
+                    <div className={(!bools.mobileScreen) ? "d-flex w-50 mt-3" : "d-flex mt-3 "}>
+
+                    {/* <GoogleMapAPI/> */}
 
 
                     </div>

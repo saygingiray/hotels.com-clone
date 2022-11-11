@@ -68,12 +68,14 @@ export default function TravellersComponent(props) {
 
     return (<>
 
-        <div  >
+        <div className="w-100" >
             <TextField
                 label="Travellers" variant="filled"
                 sx={{ input: { background: "white", width: (props.pageWidth > 650) ? "240px" : "100%" } }}
                 onClickCapture={props.onclickcaptureX}
                 value={props.valuefortextfield}
+                fullWidth={(props.pageWidth < 650) ? "true" : "false"}
+                
 
             />
             <Modal

@@ -33,22 +33,44 @@ export function ReviewScoresListing(props) {
 export function SeeReviews(props) {
     const { id } = useParams()
     const [hotelReview, setHotelReview] = React.useState({
-        hotelReviews : "",
-        qtyReviews : "",
+        hotelReviews: "",
+        qtyReviews: "",
+        pageRequest: 0,
+        isLastReview: false,
     });
 
     const [renderNow, setRenderNow] = React.useState(false)
+    const [loading, setLoading] = React.useState({
+        button: false,
+
+    })
 
     React.useEffect(() => { setRenderNow(props.modalOpen) }, [props.modalOpen]);
-    React.useEffect(() => { if (renderNow) { hotelReviewFetch() } }, [renderNow]);
+    React.useEffect(() => { if (renderNow) { hotelReviewFetch(0) } }, [renderNow]);
 
-    const hotelReviewFetch = async () => {
-        const data = await fetchHotelReviews({ id }); 
-        await setHotelReview({hotelReviews : data.allReviews, qtyReviews : data.qtyOfReviews });
+    const hotelReviewFetch = async (x) => {
+        let tempProps = {
+            hotelNumber: id,
+            pageNumber: x
+        }
+
+        const loadMore = async () => {
+            if (data.qtyOfReviews.totaldocs < (x + 1) * 5) {
+                setHotelReview((prev) => ({ ...prev, isLastReview: true }))
+            }
+
+
+        }
+        const data = await fetchHotelReviews(tempProps);
+        setHotelReview((prev) => {
+            return { ...prev, hotelReviews: [...prev.hotelReviews, ...data.allReviews], qtyReviews: data.qtyOfReviews.totaldocs };
+        });
+        loadMore();
+
+
     }
 
 
-        /// burada kaldık, pagination eklenecek.
 
 
     return <>
@@ -76,7 +98,7 @@ export function SeeReviews(props) {
                 </div>
                 <div className={(!props.mobileScreen) ? "d-flex flex-column w-75 px-4" : "d-flex flex-column mt-4 w-100"}>
 
-                    { (hotelReview.hotelReviews === "") ? null : hotelReview.hotelReviews?.map((i, index) => {
+                    {(hotelReview.hotelReviews === "") ? null : hotelReview.hotelReviews?.map((i, index) => {
                         return <div key={index}>
                             <div className="d-flex flex-row justify-content-between align-items-baseline">
                                 <div className="textSmallBold">{i.reviews?.reviewer_name}</div>
@@ -87,10 +109,19 @@ export function SeeReviews(props) {
                         </div>
                     })}
 
+                    <div>
+                        {(hotelReview.isLastReview) ? <span>End of {hotelReview.qtyReviews} reviews.</span> :
+                            <button onClick={async () => {
+                                setLoading(prev => ({ ...prev, button: true }));
+                                setHotelReview((prev) => { return { ...prev, pageRequest: hotelReview.pageRequest + 1 } })
+                                await hotelReviewFetch((hotelReview.pageRequest + 1));
+                                setLoading(prev => ({ ...prev, button: false }));
 
-
+                            }} type="button" className={(!loading.button) ? "btn btn-outline-danger" : "btn btn-outline-secondary disabled"}>{(!loading.button) ? "Read More" : "Loading..."}</button>}</div>
 
                 </div>
+
+
             </div>
         </Modal>
 

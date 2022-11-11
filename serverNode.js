@@ -181,30 +181,21 @@ app.get("/hotelDetails", async (req, res) => {
 
 app.get("/hotelReviews", async (req, res) => {
     try {
-        let queryHotel = {};
-        queryHotel["_id"] = req.query.id
-        // console.log(queryHotel)
-
-        // let optionsHotel = {};
-        // optionsHotel.projection = { reviews: 1 };
-        // optionsHotel["$slice"] = 10;
-        // // db.inventory.aggregate( [ { $unwind : "$sizes" } ] )
 
         // //BURADA KALDIK, SKIP VE LIMIT EKLENECEK !
 
-
         await client.connect();
         const dataHotelReview = await collections.aggregate([
-            { $match: {_id: req.query.id}},
+            { $match: {_id: req.query.hotelNumber}},
             { $unwind : '$reviews' },
             { $project : { _id : 0, 'reviews' : 1 } },
             { $sort : { 'reviews.date' : -1 } },
-            { $skip : 45},
-            { $limit : 10 },  
+            { $skip : req.query.pageNumber*5},
+            { $limit : 5 },  
         ]).toArray();
 
         const countReviews = await collections.aggregate([
-            { $match: {_id: req.query.id}},
+            { $match: {_id: req.query.hotelNumber}},
             { $unwind : '$reviews' },
             { $project : { _id : 0, 'reviews' : 1 } },
             { $group : { _id : '$name', totaldocs : { $sum : 1 } } },
