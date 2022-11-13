@@ -46,7 +46,7 @@ export function SeeReviews(props) {
     })
 
     React.useEffect(() => { setRenderNow(props.modalOpen) }, [props.modalOpen]);
-    React.useEffect(() => { if (renderNow) { hotelReviewFetch(0) } }, [renderNow]);
+    React.useEffect(() => {  { hotelReviewFetch(0) } }, [renderNow]);
 
     const hotelReviewFetch = async (x) => {
         let tempProps = {

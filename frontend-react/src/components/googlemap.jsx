@@ -1,45 +1,71 @@
-import React from "react";
-import { Wrapper, Status } from "@googlemaps/react-wrapper";
+import React from 'react'
+import { GoogleMap, LoadScript, MarkerF } from '@react-google-maps/api';
 
 
 
+const containerStyle = {
+    width: '50%',
+    height: '400px'
+};
 
-export default function GoogleMapAPI(){
-   
 
-    
-    // const render = (status: {Status} ): ReactElement => {
-    //   if (status === Status.LOADING) return <h3>{status} ..</h3>;
-    //   if (status === Status.FAILURE) return <h3>{status} ...</h3>;
-    //   return null;
-    // };
-    
-    // function MyMapComponent({
-    //   center,
-    //   zoom,
-    // }: {
-    //   center: google.maps.LatLngLiteral;
-    //   zoom: number;
-    // }) {
-    //   const ref = useRef();
-    
-    //   useEffect(() => {
-    //     new window.google.maps.Map(ref.current, {
-    //       center,
-    //       zoom,
-    //     });
-    //   });
-    
-    //   return <div ref={ref} id="map" />;
-    // }
-    
-    // function App() {
-    //   const center = { lat: -34.397, lng: 150.644 };
-    //   const zoom = 4;
-    
-    //   return (
-    //     <Wrapper apiKey="" render={render}>
-    //       <MyMapComponent center={center} zoom={zoom} />
-    //     </Wrapper>
-    //   );
+
+export default function GoogleMapAPI(props) {
+
+    const center = {
+        lat: props.data[1],
+        lng: props.data[0]
     }
+
+    const position = {
+        lat: props.data[1],
+        lng: props.data[0]
+    }
+
+    const onLoad = marker => {
+        console.log('marker: ', marker)
+    }
+
+    const mapContainerStyle = {
+        height: "300px",
+        width: "100%"
+      }
+
+    return (
+
+        (window.google === undefined) ? <LoadScript
+            googleMapsApiKey="AIzaSyAMbfqZwjx29C5KUP7gSt7wHHWK2m2ghdA"
+            id="script-loader"
+        //   language="en"
+        //   region="EN"
+        //   version="weekly"
+        >
+              <GoogleMap
+    id="marker-example"
+    mapContainerStyle={mapContainerStyle}
+    zoom={12}
+    center={center}
+  >
+    <MarkerF
+      onLoad={onLoad}
+      position={position}
+
+    />
+  </GoogleMap>
+        </LoadScript> :   <GoogleMap
+    id="marker-example"
+    mapContainerStyle={mapContainerStyle}
+    zoom={12}
+    center={center}
+  >
+    <MarkerF
+
+      position={position}
+      onLoad={onLoad}
+    />
+  </GoogleMap>
+
+
+
+    )
+}

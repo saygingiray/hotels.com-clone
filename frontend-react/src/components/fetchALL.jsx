@@ -101,7 +101,27 @@ export async function fetchHotelReviews(x) {
     await fetch(tempQuery, requestOptions)
     .then(response => response.json())
     .then((value) =>  { valueHotelReview = value });
-console.log(valueHotelReview)
+// console.log(valueHotelReview)
     return valueHotelReview;
 
+}
+
+export async function fetchSimilarHotel(x) {
+    let tempData = {
+        lat0: x[1]-0.4,
+        lat1: x[1]+0.4,
+        lng0: x[0]-0.4, 
+        lng1: x[0]+0.4
+    }    
+    // console.log(tempData)
+    let valueHotelReview = [];
+// console.log(tempData)
+    let tempQuery = '/similarHotels?' + new URLSearchParams(tempData).toString()
+
+    await fetch(tempQuery, requestOptions)
+    .then(response => response.json())
+    .then((value) =>  { valueHotelReview = value });
+// console.log(valueHotelReview)
+//     return valueHotelReview;
+return valueHotelReview;
 }

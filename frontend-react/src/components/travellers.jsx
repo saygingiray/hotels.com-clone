@@ -74,7 +74,7 @@ export default function TravellersComponent(props) {
                 sx={{ input: { background: "white", width: (props.pageWidth > 650) ? "240px" : "100%" } }}
                 onClickCapture={props.onclickcaptureX}
                 value={props.valuefortextfield}
-                fullWidth={(props.pageWidth < 650) ? "true" : "false"}
+                fullWidth={(props.pageWidth < 650) ? true : false}
                 
 
             />
