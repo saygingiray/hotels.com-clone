@@ -46,13 +46,20 @@ export function SeeReviews(props) {
     })
 
     React.useEffect(() => { setRenderNow(props.modalOpen) }, [props.modalOpen]);
-    React.useEffect(() => {  { hotelReviewFetch(0) } }, [renderNow]);
+    React.useEffect(() => { if (renderNow) { hotelReviewFetch(0) } }, [renderNow]);
 
     const hotelReviewFetch = async (x) => {
         let tempProps = {
             hotelNumber: id,
             pageNumber: x
         }
+
+        if (x===0) {setHotelReview({
+            hotelReviews: "",
+        qtyReviews: "",
+        pageRequest: 0,
+        isLastReview: false,
+        })} ;
 
         const loadMore = async () => {
             if (data.qtyOfReviews.totaldocs < (x + 1) * 5) {
