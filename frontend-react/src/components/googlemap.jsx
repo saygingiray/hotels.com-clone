@@ -3,6 +3,9 @@ import { GoogleMap, LoadScript, MarkerF } from '@react-google-maps/api';
 
 
 
+
+
+
 const containerStyle = {
     width: '50%',
     height: '400px'
@@ -34,7 +37,7 @@ export default function GoogleMapAPI(props) {
     return (
 
         (window.google === undefined) ? <LoadScript
-            googleMapsApiKey="AIzaSyAMbfqZwjx29C5KUP7gSt7wHHWK2m2ghdA"
+            googleMapsApiKey={process.env.GOOGLEAPI}
             id="script-loader"
         //   language="en"
         //   region="EN"
